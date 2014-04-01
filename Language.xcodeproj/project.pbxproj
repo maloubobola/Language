@@ -6,10 +6,37 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXFileReference section */
+		E97E9EF818EA80D1002C4D2D /* output.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = output.txt; sourceTree = "<group>"; };
+		E9C2F6C218E7D91B002129AC /* lex.yy.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = lex.yy.c; sourceTree = "<group>"; };
+		E9C2F6C318E7D91B002129AC /* lexical.l */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.lex; path = lexical.l; sourceTree = "<group>"; };
+		E9C2F6C418E7D91B002129AC /* lexical.y */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.yacc; path = lexical.y; sourceTree = "<group>"; };
+		E9C2F6C518E7D91B002129AC /* makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = makefile; sourceTree = "<group>"; };
+		E9C2F6C718E7D91B002129AC /* test.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = test.c; sourceTree = "<group>"; };
+		E9C2F6C818E7D91B002129AC /* y.tab.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = y.tab.c; sourceTree = "<group>"; };
+		E9C2F6C918E7D91B002129AC /* y.tab.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = y.tab.h; sourceTree = "<group>"; };
+		E9F06D3718E8827D003394AA /* list.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = list.h; sourceTree = "<group>"; };
+		E9F06D3818E88287003394AA /* list.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = list.c; sourceTree = "<group>"; };
+		E9F06D3918E893B4003394AA /* symbol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = symbol.h; sourceTree = "<group>"; };
+		E9F06D3A18E893C2003394AA /* symbol.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = symbol.c; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
 /* Begin PBXGroup section */
 		E9C2F6B718E7D90A002129AC = {
 			isa = PBXGroup;
 			children = (
+				E97E9EF818EA80D1002C4D2D /* output.txt */,
+				E9F06D3818E88287003394AA /* list.c */,
+				E9F06D3718E8827D003394AA /* list.h */,
+				E9C2F6C518E7D91B002129AC /* makefile */,
+				E9C2F6C218E7D91B002129AC /* lex.yy.c */,
+				E9C2F6C818E7D91B002129AC /* y.tab.c */,
+				E9C2F6C918E7D91B002129AC /* y.tab.h */,
+				E9C2F6C318E7D91B002129AC /* lexical.l */,
+				E9C2F6C418E7D91B002129AC /* lexical.y */,
+				E9F06D3918E893B4003394AA /* symbol.h */,
+				E9F06D3A18E893C2003394AA /* symbol.c */,
+				E9C2F6C718E7D91B002129AC /* test.c */,
 			);
 			sourceTree = "<group>";
 		};
@@ -165,6 +192,7 @@
 				E9C2F6C118E7D90A002129AC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
