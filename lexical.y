@@ -38,6 +38,7 @@ FILE *file = NULL;
 %token tDifferent
 %token tIf
 %token tElse
+%token tWhile
 
 %start Start
 
@@ -101,6 +102,10 @@ Functions 	: If ;
 
 Functions 	: If Functions ;
 
+Functions 	: While ;
+
+Functions 	: While Functions ;
+
 If 			: tIf tOpenBracket Comparison   
 			{
 				increaseCptIf();
@@ -110,8 +115,7 @@ If 			: tIf tOpenBracket Comparison
 			tCloseBracket tOpenBrace Functions tCloseBrace 
 			{
                 jumpList = addLast(jumpList,getCptLine() + 2);
-                print(jumpList);
-			} 
+			}
 			tElse tOpenBrace  
 			{
 				increaseCptIf();
@@ -120,7 +124,6 @@ If 			: tIf tOpenBracket Comparison
 			} 
 			Functions tCloseBrace {
                 jumpList = addLast(jumpList,getCptLine() + 1);
-                print(jumpList);
 			};
 
 If			: tIf tOpenBracket Comparison   
@@ -132,10 +135,25 @@ If			: tIf tOpenBracket Comparison
 			tCloseBracket tOpenBrace Functions tCloseBrace 
 			{
                 jumpList = addLast(jumpList,getCptLine() + 1);
-                print(jumpList);
 			};
+
+While       : tWhile tOpenBracket Comparison
+            {
+                increaseCptIf();
+				fprintf(file,"JMF %d [%d]\n",$3, getCptIf() - 1);
+				increaseCptLine();
+                jumpList = addLast(jumpList,getCptLine());
+            }
+            tCloseBracket tOpenBrace Functions tCloseBrace
+            {
+                increaseCptIf();
+                jumpList = addBeforelast(jumpList,getCptLine() + 2);
+                fprintf(file,"JMP [%d]\n", getCptIf() - 1);
+                print(jumpList);
+				increaseCptLine();
+            };
 			
-Comparison  : Term tCompEqual Term 
+Comparison  : Term tCompEqual Term
 			{
 				int min = $1 < $3 ? $1 : $3;
 				fprintf(file,"EQU %d %d %d\n",min,$1,$3);

@@ -38,6 +38,31 @@ int_list addLast(int_list list, int value) {
     }
 }
 
+int_list addBeforelast(int_list list, int value) {
+    int_element* element = malloc(sizeof(int_element));
+    
+    element->value = value;
+    element->next = NULL;
+    
+    if(list == NULL)
+        return element;
+    else if(size(list) == 1){
+        return addFirst(list,value);
+    }
+    else {
+        int_element *tmp = list;
+        
+        while(tmp->next->next != NULL) {
+            tmp = tmp->next;
+        }
+        
+        element->next = tmp->next;
+        tmp->next = element;
+        
+        return list;
+    }
+}
+
 void print(int_list list) {
     int_element *tmp = list;
     

@@ -20,6 +20,8 @@ int_list addFirst(int_list list, int value);
 
 int_list addLast(int_list list, int value);
 
+int_list addBeforelast(int_list list, int value);
+
 void print(int_list list);
 
 int isEmpty(int_list list);

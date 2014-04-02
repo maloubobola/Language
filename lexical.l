@@ -68,6 +68,13 @@ else			{
 					return tElse;
 				}
 
+while           {
+                    #if DEBUG
+                        printf("\tWhile");
+                    #endif
+                    return tWhile;
+                }
+
 printf			{
 					#if DEBUG
 						printf("tPrintf");
