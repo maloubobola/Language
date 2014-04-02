@@ -11,10 +11,6 @@
 #include "symbol.h"
 
 symbol_table symtable[NSYMS];
-int declarationAddress = 0;
-int currentAddress = -1;
-int cptIf = 0;
-int cptLine = 0;
 
 symbol_table * symlook(char *s) {
   	symbol_table *sp;
@@ -36,42 +32,6 @@ void setValue(symbol_table * symtable, int value) {
 
 void setAddress(symbol_table * symtable, int address) {
 	symtable->address = address;
-}
-
-inline int getDeclarationAddress() {
-	return declarationAddress;
-}
-
-inline void setDeclarationAddress(int address) {
-	declarationAddress = address;
-}
-
-inline int getCurrentAddress() {
-	return currentAddress;
-}
-
-inline void setCurrentAddress(int address) {
-	currentAddress = address;
-}
-
-inline int getCptIf() {
-	return cptIf;
-}
-
-inline void increaseCptIf() {
-	cptIf ++;
-}
-
-inline void decreaseCptIf() {
-	cptIf --;
-}
-
-inline void increaseCptLine() {
-	cptLine ++;
-}
-
-inline int getCptLine() {
-	return cptLine;
 }
 
 int printSymTab(void) {

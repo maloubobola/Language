@@ -8,6 +8,8 @@
 #include <string.h>
 #include "list.h"
 
+
+
 typedef struct symbol_table
 {
 	char *name;
@@ -22,23 +24,5 @@ int printSymTab(void);
 void setValue(symbol_table * symtable, int value);
 
 void setAddress(symbol_table * symtable, int address);
-
-int getDeclarationAddress();
-
-void setDeclarationAddress(int address);
-
-int getCurrentAddress();
-
-void setCurrentAddress(int address);
-
-int getCptIf();
-
-void increaseCptIf();
-
-void decreaseCptIf();
-
-void increaseCptLine();
-
-int getCptLine();
 
 #endif
