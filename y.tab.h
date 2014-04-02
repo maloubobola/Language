@@ -102,7 +102,7 @@
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 43 "lexical.y"
+#line 44 "lexical.y"
 {char* string ; int integer;}
 /* Line 1529 of yacc.c.  */
 #line 109 "y.tab.h"
