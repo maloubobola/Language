@@ -4,6 +4,10 @@
 #include <string.h>
 #include <stdlib.h>
 %}
+
+%x BLOCK_COMMENT
+%x INLINE_COMMENT
+
 %%
 main			{
 					#if DEBUG
@@ -81,6 +85,26 @@ printf			{
 					#endif
 					return tPrintf;
 				}
+
+"/*"            {
+                    BEGIN(BLOCK_COMMENT);
+                }
+
+<BLOCK_COMMENT>"*/"   {
+                    BEGIN(INITIAL);
+                }
+
+<BLOCK_COMMENT>.      {}
+
+"//"            {
+                    BEGIN(INLINE_COMMENT);
+                }
+
+<INLINE_COMMENT>"\n"   {
+                    BEGIN(INITIAL);
+                }
+
+<INLINE_COMMENT>.      {}
 
 [a-z][a-zA-Z_]*	{
 					#if DEBUG

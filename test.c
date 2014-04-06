@@ -3,9 +3,11 @@ int main ( ) {
 
 	while(x == 2) {
 		printf(x);
+        //printf(x);
+        /*
         printf(x);
         printf(x);
         printf(x);
-        printf(x);
+        */
 	}
 }
