@@ -5,9 +5,9 @@ RM=rm -rf
 CFLAGS=-Wall
 LDFLAGS=
 EXEC=lexical
-SRC= list.c symbol.c
+SRC= list.c symbol.c utils.c
 OBJ= $(SRC:.c=.o)
-DEPS = list.h symbol.h string.h
+DEPS = list.h symbol.h utils.h
 
 all: $(EXEC)
 

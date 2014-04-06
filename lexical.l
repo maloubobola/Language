@@ -9,226 +9,226 @@
 %x INLINE_COMMENT
 
 %%
-main			{
-					#if DEBUG
-						printf("tMain");
-					#endif
-					return tMain;
-				}
+"/*"                {
+                        BEGIN(BLOCK_COMMENT);
+                    }
 
-\(				{
-					#if DEBUG
-						printf("tOpenBracket");
-					#endif
-					return tOpenBracket;
-				}
+<BLOCK_COMMENT>"*/" {
+                        BEGIN(INITIAL);
+                    }
 
-\)				{
-					#if DEBUG
-						printf("tCloseBracket");
-					#endif
-					return tCloseBracket;
-				}
+<BLOCK_COMMENT>.    {}
 
-\{				{
-					#if DEBUG
-						printf("tOpenBrace");
-					#endif
-					return tOpenBrace;
-				}
+"//"                {
+                        BEGIN(INLINE_COMMENT);
+                    }
 
-\}				{
-					#if DEBUG
-						printf("tCloseBrace");
-					#endif
-					return tCloseBrace;
-				}
+<INLINE_COMMENT>"\n"    {
+                        BEGIN(INITIAL);
+                        }
 
-const			{
-					#if DEBUG
-						printf("tConstant");
-					#endif
-					return tConstant;
-				}
+<INLINE_COMMENT>.   {}
 
-int				{
-					#if DEBUG
-						printf("tInteger");
-					#endif
-					return tInteger;
-				}
+main                {
+                        #if DEBUG
+                            printf("tMain");
+                            #endif
+                            return tMain;
+                    }
 
-if 				{
-					#if DEBUG
-						printf("tIf");
-					#endif
-					return tIf;
-				}
+\(                  {
+                        #if DEBUG
+                            printf("tOpenBracket");
+                        #endif
+                        return tOpenBracket;
+                    }
 
-else			{
-					#if DEBUG
-						printf("\tElse");
-					#endif
-					return tElse;
-				}
+\)                  {
+                        #if DEBUG
+                            printf("tCloseBracket");
+                            #endif
+                            return tCloseBracket;
+                    }
 
-while           {
-                    #if DEBUG
-                        printf("\tWhile");
-                    #endif
-                    return tWhile;
-                }
+\{                  {
+                        #if DEBUG
+                            printf("tOpenBrace");
+                            #endif
+                            return tOpenBrace;
+                    }
 
-printf			{
-					#if DEBUG
-						printf("tPrintf");
-					#endif
-					return tPrintf;
-				}
+\}                  {
+                        #if DEBUG
+                            printf("tCloseBrace");
+                        #endif
+                        return tCloseBrace;
+                    }
 
-"/*"            {
-                    BEGIN(BLOCK_COMMENT);
-                }
+const               {
+                        #if DEBUG
+                            printf("tConstant");
+                        #endif
+                        return tConstant;
+                    }
 
-<BLOCK_COMMENT>"*/"   {
-                    BEGIN(INITIAL);
-                }
+int                 {
+                        #if DEBUG
+                            printf("tInteger");
+                        #endif
+                        return tInteger;
+                    }
 
-<BLOCK_COMMENT>.      {}
+if                  {
+                        #if DEBUG
+                            printf("tIf");
+                        #endif
+                        return tIf;
+                    }
 
-"//"            {
-                    BEGIN(INLINE_COMMENT);
-                }
+else                {
+                        #if DEBUG
+                            printf("\tElse");
+                        #endif
+                        return tElse;
+                    }
 
-<INLINE_COMMENT>"\n"   {
-                    BEGIN(INITIAL);
-                }
+while               {
+                        #if DEBUG
+                            printf("\tWhile");
+                        #endif
+                        return tWhile;
+                    }
 
-<INLINE_COMMENT>.      {}
+printf              {
+                        #if DEBUG
+                            printf("tPrintf");
+                        #endif
+                        return tPrintf;
+                    }
 
-[a-z][a-zA-Z_]*	{
-					#if DEBUG
-						printf("tName");
-					#endif
-					yylval.string = strdup(yytext);
-					return tName;
-				}
+[a-z][a-zA-Z_]*     {
+                        #if DEBUG
+                            printf("tName");
+                        #endif
+                        yylval.string = strdup(yytext);
+                        return tName;
+                    }
 
-\+				{
-					#if DEBUG
-						printf("tAdd");
-					#endif
-					return tAdd;
-				}
+\+                  {
+                        #if DEBUG
+                            printf("tAdd");
+                        #endif
+                        return tAdd;
+                    }
 
-\-				{
-					#if DEBUG
-						printf("tSubstract");
-					#endif
-					return tSubstract;
-				}
+\-                  {
+                        #if DEBUG
+                            printf("tSubstract");
+                        #endif
+                        return tSubstract;
+                    }
 
-\*				{
-					#if DEBUG
-						printf("tMultiply");
-					#endif
-					return tMultiply;
-				}
+\*                  {
+                        #if DEBUG
+                            printf("tMultiply");
+                        #endif
+                        return tMultiply;
+                    }
 
-\/				{
-					#if DEBUG
-						printf("tDivide");
-					#endif
-					return tDivide;
-				}
+\/                  {
+                        #if DEBUG
+                            printf("tDivide");
+                        #endif
+                        return tDivide;
+                    }
 
-\=				{
-					#if DEBUG
-						printf("tEqual");
-					#endif
-					return tEqual;
-				}
+\=                  {
+                        #if DEBUG
+                            printf("tEqual");
+                        #endif
+                        return tEqual;
+                    }
 
-[ ]				{
-					#if DEBUG
-						printf(" ");
-					#endif
-				}
+[ ]                 {
+                        #if DEBUG
+                            printf(" ");
+                        #endif
+                    }
 
-[\t]			{
-					#if DEBUG
-						printf("\t");
-					#endif
-				}
+[\t]                {
+                        #if DEBUG
+                            printf("\t");
+                        #endif
+                    }
 
-,				{
-					#if DEBUG
-						printf(", ");
-					#endif
-					return tComma;
-				}
+,                   {
+                        #if DEBUG
+                            printf(", ");
+                        #endif
+                        return tComma;
+                    }
 
-;				{
-					#if DEBUG
-						printf(" ; ");
-					#endif
-					return tSemiColon;
-				}
+;                   {
+                        #if DEBUG
+                            printf(" ; ");
+                        #endif
+                        return tSemiColon;
+                    }
 
-[0-9]*			{
-					#if DEBUG
-						printf("tNumber");
-					#endif
-					yylval.integer = atoi(yytext);
-					return tNumber;
-				}
+[0-9]*              {
+                        #if DEBUG
+                            printf("tNumber");
+                        #endif
+                        yylval.integer = atoi(yytext);
+                        return tNumber;
+                    }
 
-\n				{
-					#if DEBUG
-						printf("\n");
-					#endif
-				}
+\n                  {
+                        #if DEBUG
+                            printf("\n");
+                        #endif
+                    }
 				
-\=\=			{
-					#if DEBUG
-						printf("tCompEqual");
-					#endif
-					return tCompEqual;
-				}
+\=\=                {
+                        #if DEBUG
+                            printf("tCompEqual");
+                        #endif
+                        return tCompEqual;
+                    }
 
-\<				{
-					#if DEBUG
-						printf("tLt");
-					#endif
-					return tLt;
-				}
+\<                  {
+                        #if DEBUG
+                            printf("tLt");
+                        #endif
+                        return tLt;
+                    }
 				
-\> 				{
-					#if DEBUG
-						printf("tGt");
-					#endif
-					return tGt;
-				}
+\>                  {
+                        #if DEBUG
+                            printf("tGt");
+                        #endif
+                        return tGt;
+                    }
 				
-\<\=			{
-					#if DEBUG
-						printf("tLte");
-					#endif
-					return tLte;
-				}
+\<\=                {
+                        #if DEBUG
+                            printf("tLte");
+                            #endif
+                            return tLte;
+                    }
 
-\>\=			{
-					#if DEBUG
-						printf("tGte");
-					#endif
-					return tGte;
-				}
+\>\=                {
+                        #if DEBUG
+                            printf("tGte");
+                        #endif
+                        return tGte;
+                    }
 				
-\!\=			{
-					#if DEBUG
-						printf("tDifferent");
-					#endif
-					return tDifferent;
-				}		
+\!\=                {
+                        #if DEBUG
+                            printf("tDifferent");
+                        #endif
+                        return tDifferent;
+                    }
 
-.				{}
+.                   {} ;

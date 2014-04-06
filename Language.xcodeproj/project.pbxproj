@@ -8,6 +8,8 @@
 
 /* Begin PBXFileReference section */
 		E97E9EF818EA80D1002C4D2D /* output.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = output.txt; sourceTree = "<group>"; };
+		E9929C7818F20AAF00B02B09 /* utils.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = utils.c; sourceTree = "<group>"; };
+		E9929C7918F20AB900B02B09 /* utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = utils.h; sourceTree = "<group>"; };
 		E9C2F6C218E7D91B002129AC /* lex.yy.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = lex.yy.c; sourceTree = "<group>"; };
 		E9C2F6C318E7D91B002129AC /* lexical.l */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.lex; path = lexical.l; sourceTree = "<group>"; };
 		E9C2F6C418E7D91B002129AC /* lexical.y */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.yacc; path = lexical.y; sourceTree = "<group>"; };
@@ -25,6 +27,8 @@
 		E9C2F6B718E7D90A002129AC = {
 			isa = PBXGroup;
 			children = (
+				E9929C7918F20AB900B02B09 /* utils.h */,
+				E9929C7818F20AAF00B02B09 /* utils.c */,
 				E97E9EF818EA80D1002C4D2D /* output.txt */,
 				E9F06D3818E88287003394AA /* list.c */,
 				E9F06D3718E8827D003394AA /* list.h */,

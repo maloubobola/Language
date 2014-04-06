@@ -134,10 +134,9 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include "symbol.h"
 #include "list.h"
-#include "string.h"
+#include "utils.h"
 
 int_list jumpList;
 
@@ -171,10 +170,10 @@ FILE *file = NULL;
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 52 "lexical.y"
+#line 51 "lexical.y"
 {char* string ; int integer;}
 /* Line 193 of yacc.c.  */
-#line 178 "y.tab.c"
+#line 177 "y.tab.c"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
@@ -187,7 +186,7 @@ typedef union YYSTYPE
 
 
 /* Line 216 of yacc.c.  */
-#line 191 "y.tab.c"
+#line 190 "y.tab.c"
 
 #ifdef short
 # undef short
@@ -490,11 +489,11 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint16 yyrline[] =
 {
-       0,    63,    63,    65,    68,    67,    74,    76,    78,    80,
-      87,    97,   107,   109,   111,   113,   116,   122,   126,   115,
-     136,   135,   147,   146,   161,   170,   178,   186,   194,   202,
-     204,   209,   211,   218,   225,   233,   241,   249,   257,   259,
-     267
+       0,    62,    62,    64,    67,    66,    73,    75,    77,    79,
+      86,    96,   106,   108,   110,   112,   115,   121,   125,   114,
+     135,   134,   146,   145,   160,   169,   177,   185,   193,   201,
+     203,   208,   210,   217,   224,   232,   240,   248,   256,   258,
+     266
 };
 #endif
 
@@ -1450,12 +1449,12 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 63 "lexical.y"
+#line 62 "lexical.y"
     {printf("\n\n#########\nSyntax ok\n#########\n");}
     break;
 
   case 4:
-#line 68 "lexical.y"
+#line 67 "lexical.y"
     {
 				if(currentAddress == -1)
                     currentAddress = declarationAddress;
@@ -1463,7 +1462,7 @@ yyreduce:
     break;
 
   case 9:
-#line 81 "lexical.y"
+#line 80 "lexical.y"
     {
 				symbol_table * symbtable = symlook((yyvsp[(2) - (2)].string));
 				setAddress(symbtable,declarationAddress);
@@ -1472,7 +1471,7 @@ yyreduce:
     break;
 
   case 10:
-#line 88 "lexical.y"
+#line 87 "lexical.y"
     {
 				symbol_table * symbtable = symlook((yyvsp[(2) - (4)].string));
 				setValue(symbtable,(yyvsp[(4) - (4)].integer));
@@ -1484,7 +1483,7 @@ yyreduce:
     break;
 
   case 11:
-#line 98 "lexical.y"
+#line 97 "lexical.y"
     {
 				symbol_table * symbtable = symlook((yyvsp[(3) - (5)].string));
 				setValue(symbtable,(yyvsp[(5) - (5)].integer));
@@ -1496,7 +1495,7 @@ yyreduce:
     break;
 
   case 16:
-#line 116 "lexical.y"
+#line 115 "lexical.y"
     {
 				cptIf++;
 				fprintf(file,"JMF %d [%d]\n",(yyvsp[(3) - (3)].integer), cptIf - 1);
@@ -1505,14 +1504,14 @@ yyreduce:
     break;
 
   case 17:
-#line 122 "lexical.y"
+#line 121 "lexical.y"
     {
                 jumpList = addLast(jumpList,cptLine + 2);
 			}
     break;
 
   case 18:
-#line 126 "lexical.y"
+#line 125 "lexical.y"
     {
 				cptIf++;
 				fprintf(file,"JMP [%d]\n", cptIf - 1);
@@ -1521,14 +1520,14 @@ yyreduce:
     break;
 
   case 19:
-#line 131 "lexical.y"
+#line 130 "lexical.y"
     {
                 jumpList = addLast(jumpList,cptLine + 1);
 			}
     break;
 
   case 20:
-#line 136 "lexical.y"
+#line 135 "lexical.y"
     {
 				cptIf++;
 				fprintf(file,"JMF %d [%d]\n",(yyvsp[(3) - (3)].integer), cptIf);
@@ -1537,14 +1536,14 @@ yyreduce:
     break;
 
   case 21:
-#line 142 "lexical.y"
+#line 141 "lexical.y"
     {
                 jumpList = addLast(jumpList,cptLine + 1);
 			}
     break;
 
   case 22:
-#line 147 "lexical.y"
+#line 146 "lexical.y"
     {
                 cptIf++;
 				fprintf(file,"JMF %d [%d]\n",(yyvsp[(3) - (3)].integer), cptIf - 1);
@@ -1554,7 +1553,7 @@ yyreduce:
     break;
 
   case 23:
-#line 154 "lexical.y"
+#line 153 "lexical.y"
     {
                 cptIf++;
                 jumpList = addBeforelast(jumpList,cptLine + 2);
@@ -1564,7 +1563,7 @@ yyreduce:
     break;
 
   case 24:
-#line 162 "lexical.y"
+#line 161 "lexical.y"
     {
 				int min = (yyvsp[(1) - (3)].integer) < (yyvsp[(3) - (3)].integer) ? (yyvsp[(1) - (3)].integer) : (yyvsp[(3) - (3)].integer);
 				fprintf(file,"EQU %d %d %d\n",min,(yyvsp[(1) - (3)].integer),(yyvsp[(3) - (3)].integer));
@@ -1575,7 +1574,7 @@ yyreduce:
     break;
 
   case 25:
-#line 171 "lexical.y"
+#line 170 "lexical.y"
     {
 				int min = (yyvsp[(1) - (3)].integer) < (yyvsp[(3) - (3)].integer) ? (yyvsp[(1) - (3)].integer) : (yyvsp[(3) - (3)].integer);
 				fprintf(file,"INF %d %d %d\n",min,(yyvsp[(1) - (3)].integer),(yyvsp[(3) - (3)].integer));
@@ -1585,7 +1584,7 @@ yyreduce:
     break;
 
   case 26:
-#line 179 "lexical.y"
+#line 178 "lexical.y"
     {
 				int min = (yyvsp[(1) - (3)].integer) < (yyvsp[(3) - (3)].integer) ? (yyvsp[(1) - (3)].integer) : (yyvsp[(3) - (3)].integer);
 				fprintf(file,"INF %d %d %d\n",min,(yyvsp[(1) - (3)].integer),(yyvsp[(3) - (3)].integer));
@@ -1595,7 +1594,7 @@ yyreduce:
     break;
 
   case 27:
-#line 187 "lexical.y"
+#line 186 "lexical.y"
     {
 				int min = (yyvsp[(1) - (3)].integer) < (yyvsp[(3) - (3)].integer) ? (yyvsp[(1) - (3)].integer) : (yyvsp[(3) - (3)].integer);
 				fprintf(file,"SUP %d %d %d\n",min,(yyvsp[(1) - (3)].integer),(yyvsp[(3) - (3)].integer));
@@ -1605,7 +1604,7 @@ yyreduce:
     break;
 
   case 28:
-#line 195 "lexical.y"
+#line 194 "lexical.y"
     {
 				int min = (yyvsp[(1) - (3)].integer) < (yyvsp[(3) - (3)].integer) ? (yyvsp[(1) - (3)].integer) : (yyvsp[(3) - (3)].integer);
 				fprintf(file,"SUP %d %d %d\n",min,(yyvsp[(1) - (3)].integer),(yyvsp[(3) - (3)].integer));
@@ -1615,14 +1614,14 @@ yyreduce:
     break;
 
   case 30:
-#line 205 "lexical.y"
+#line 204 "lexical.y"
     {
 				
 			}
     break;
 
   case 32:
-#line 212 "lexical.y"
+#line 211 "lexical.y"
     {
 				symbol_table * symbtable = symlook((yyvsp[(3) - (4)].string));
 				fprintf(file,"PRI %d\n",symbtable->address);
@@ -1631,7 +1630,7 @@ yyreduce:
     break;
 
   case 33:
-#line 219 "lexical.y"
+#line 218 "lexical.y"
     {
 				fprintf(file,"COP %d %d\n",symlook((yyvsp[(1) - (3)].string))->address,(yyvsp[(3) - (3)].integer));
 				cptLine++;
@@ -1640,7 +1639,7 @@ yyreduce:
     break;
 
   case 34:
-#line 226 "lexical.y"
+#line 225 "lexical.y"
     {
 				int min = (yyvsp[(1) - (3)].integer) < (yyvsp[(3) - (3)].integer) ? (yyvsp[(1) - (3)].integer) : (yyvsp[(3) - (3)].integer);
 				fprintf(file,"ADD %d %d %d\n",min,(yyvsp[(1) - (3)].integer),(yyvsp[(3) - (3)].integer));
@@ -1650,7 +1649,7 @@ yyreduce:
     break;
 
   case 35:
-#line 234 "lexical.y"
+#line 233 "lexical.y"
     {
 				int min = (yyvsp[(1) - (3)].integer) < (yyvsp[(3) - (3)].integer) ? (yyvsp[(1) - (3)].integer) : (yyvsp[(3) - (3)].integer);
 				fprintf(file,"SOU %d %d %d\n",min,(yyvsp[(1) - (3)].integer),(yyvsp[(3) - (3)].integer));
@@ -1660,7 +1659,7 @@ yyreduce:
     break;
 
   case 36:
-#line 242 "lexical.y"
+#line 241 "lexical.y"
     {
 				int min = (yyvsp[(1) - (3)].integer) < (yyvsp[(3) - (3)].integer) ? (yyvsp[(1) - (3)].integer) : (yyvsp[(3) - (3)].integer);
 				fprintf(file,"MUL %d %d %d\n",min,(yyvsp[(1) - (3)].integer),(yyvsp[(3) - (3)].integer));
@@ -1670,7 +1669,7 @@ yyreduce:
     break;
 
   case 37:
-#line 250 "lexical.y"
+#line 249 "lexical.y"
     {
 				int min = (yyvsp[(1) - (3)].integer) < (yyvsp[(3) - (3)].integer) ? (yyvsp[(1) - (3)].integer) : (yyvsp[(3) - (3)].integer);
 				fprintf(file,"DIV %d %d %d\n",min,(yyvsp[(1) - (3)].integer),(yyvsp[(3) - (3)].integer));
@@ -1680,7 +1679,7 @@ yyreduce:
     break;
 
   case 39:
-#line 260 "lexical.y"
+#line 259 "lexical.y"
     {
 				fprintf(file,"COP %d %d\n",currentAddress,symlook((yyvsp[(1) - (1)].string))->address);
 				cptLine++;
@@ -1690,7 +1689,7 @@ yyreduce:
     break;
 
   case 40:
-#line 268 "lexical.y"
+#line 267 "lexical.y"
     {
 				fprintf(file,"AFC %d %d\n",currentAddress,(yyvsp[(1) - (1)].integer));
 				cptLine++;
@@ -1701,7 +1700,7 @@ yyreduce:
 
 
 /* Line 1267 of yacc.c.  */
-#line 1705 "y.tab.c"
+#line 1704 "y.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -1915,43 +1914,8 @@ yyreturn:
 }
 
 
-#line 275 "lexical.y"
+#line 274 "lexical.y"
 
-
-void replaceAllString(char *buf, const char *orig, const char *replace) {
-    int olen, rlen;
-    char *s, *d;
-    char *tmpbuf;
-    
-    if (!buf || !*buf || !orig || !*orig || !replace)
-        return;
-    
-    tmpbuf = malloc(strlen(buf) + 1);
-    if (tmpbuf == NULL)
-        return;
-    
-    
-    olen = strlen(orig);
-    rlen = strlen(replace);
-    
-    s = buf;
-    d = tmpbuf;
-    
-    while (*s) {
-        if (strncmp(s, orig, olen) == 0) {
-            strcpy(d, replace);
-            s += olen;
-            d += rlen;
-        }
-        else
-        *d++ = *s++;
-    }
-    
-    *d = '\0';
-    
-    strcpy(buf, tmpbuf);
-    free(tmpbuf);
-}
 
 int secondTime() {
     int i ;

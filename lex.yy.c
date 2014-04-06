@@ -370,12 +370,12 @@ struct yy_trans_info
 static yyconst flex_int16_t yy_accept[71] =
     {   0,
        28,   28,    0,    0,    0,    0,   38,   36,   25,   29,
-       24,   36,    2,    3,   21,   19,   26,   20,   22,   28,
+       24,   36,    8,    9,   21,   19,   26,   20,   22,   28,
        27,   31,   23,   32,   18,   18,   18,   18,   18,   18,
-       18,    4,    5,   14,   37,   14,   17,   16,   35,   12,
-       15,   28,   33,   30,   34,   18,   18,   18,    8,   18,
-       18,   18,   18,   13,   18,   18,    7,   18,   18,   18,
-       18,    9,    1,   18,   18,    6,   18,   10,   11,    0
+       18,   10,   11,    3,   37,    3,    6,    5,   35,    1,
+        4,   28,   33,   30,   34,   18,   18,   18,   14,   18,
+       18,   18,   18,    2,   18,   18,   13,   18,   18,   18,
+       18,   15,    7,   18,   18,   12,   18,   16,   17,    0
     } ;
 
 static yyconst flex_int32_t yy_ec[256] =
@@ -771,335 +771,335 @@ case 1:
 YY_RULE_SETUP
 #line 12 "lexical.l"
 {
-					#if DEBUG
-						printf("tMain");
-					#endif
-					return tMain;
-				}
+                        BEGIN(BLOCK_COMMENT);
+                    }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 19 "lexical.l"
+#line 16 "lexical.l"
 {
-					#if DEBUG
-						printf("tOpenBracket");
-					#endif
-					return tOpenBracket;
-				}
+                        BEGIN(INITIAL);
+                    }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 26 "lexical.l"
-{
-					#if DEBUG
-						printf("tCloseBracket");
-					#endif
-					return tCloseBracket;
-				}
+#line 20 "lexical.l"
+{}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 33 "lexical.l"
+#line 22 "lexical.l"
 {
-					#if DEBUG
-						printf("tOpenBrace");
-					#endif
-					return tOpenBrace;
-				}
+                        BEGIN(INLINE_COMMENT);
+                    }
 	YY_BREAK
 case 5:
+/* rule 5 can match eol */
 YY_RULE_SETUP
-#line 40 "lexical.l"
+#line 26 "lexical.l"
 {
-					#if DEBUG
-						printf("tCloseBrace");
-					#endif
-					return tCloseBrace;
-				}
+                        BEGIN(INITIAL);
+                        }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 47 "lexical.l"
-{
-					#if DEBUG
-						printf("tConstant");
-					#endif
-					return tConstant;
-				}
+#line 30 "lexical.l"
+{}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 54 "lexical.l"
+#line 32 "lexical.l"
 {
-					#if DEBUG
-						printf("tInteger");
-					#endif
-					return tInteger;
-				}
+                        #if DEBUG
+                            printf("tMain");
+                            #endif
+                            return tMain;
+                    }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 61 "lexical.l"
+#line 39 "lexical.l"
 {
-					#if DEBUG
-						printf("tIf");
-					#endif
-					return tIf;
-				}
+                        #if DEBUG
+                            printf("tOpenBracket");
+                        #endif
+                        return tOpenBracket;
+                    }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 68 "lexical.l"
+#line 46 "lexical.l"
 {
-					#if DEBUG
-						printf("\tElse");
-					#endif
-					return tElse;
-				}
+                        #if DEBUG
+                            printf("tCloseBracket");
+                            #endif
+                            return tCloseBracket;
+                    }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 75 "lexical.l"
+#line 53 "lexical.l"
 {
-                    #if DEBUG
-                        printf("\tWhile");
-                    #endif
-                    return tWhile;
-                }
+                        #if DEBUG
+                            printf("tOpenBrace");
+                            #endif
+                            return tOpenBrace;
+                    }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 82 "lexical.l"
+#line 60 "lexical.l"
 {
-					#if DEBUG
-						printf("tPrintf");
-					#endif
-					return tPrintf;
-				}
+                        #if DEBUG
+                            printf("tCloseBrace");
+                        #endif
+                        return tCloseBrace;
+                    }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 89 "lexical.l"
+#line 67 "lexical.l"
 {
-                    BEGIN(BLOCK_COMMENT);
-                }
+                        #if DEBUG
+                            printf("tConstant");
+                        #endif
+                        return tConstant;
+                    }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 93 "lexical.l"
+#line 74 "lexical.l"
 {
-                    BEGIN(INITIAL);
-                }
+                        #if DEBUG
+                            printf("tInteger");
+                        #endif
+                        return tInteger;
+                    }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 97 "lexical.l"
-{}
+#line 81 "lexical.l"
+{
+                        #if DEBUG
+                            printf("tIf");
+                        #endif
+                        return tIf;
+                    }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 99 "lexical.l"
+#line 88 "lexical.l"
 {
-                    BEGIN(INLINE_COMMENT);
-                }
+                        #if DEBUG
+                            printf("\tElse");
+                        #endif
+                        return tElse;
+                    }
 	YY_BREAK
 case 16:
-/* rule 16 can match eol */
 YY_RULE_SETUP
-#line 103 "lexical.l"
+#line 95 "lexical.l"
 {
-                    BEGIN(INITIAL);
-                }
+                        #if DEBUG
+                            printf("\tWhile");
+                        #endif
+                        return tWhile;
+                    }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 107 "lexical.l"
-{}
+#line 102 "lexical.l"
+{
+                        #if DEBUG
+                            printf("tPrintf");
+                        #endif
+                        return tPrintf;
+                    }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
 #line 109 "lexical.l"
 {
-					#if DEBUG
-						printf("tName");
-					#endif
-					yylval.string = strdup(yytext);
-					return tName;
-				}
+                        #if DEBUG
+                            printf("tName");
+                        #endif
+                        yylval.string = strdup(yytext);
+                        return tName;
+                    }
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
 #line 117 "lexical.l"
 {
-					#if DEBUG
-						printf("tAdd");
-					#endif
-					return tAdd;
-				}
+                        #if DEBUG
+                            printf("tAdd");
+                        #endif
+                        return tAdd;
+                    }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
 #line 124 "lexical.l"
 {
-					#if DEBUG
-						printf("tSubstract");
-					#endif
-					return tSubstract;
-				}
+                        #if DEBUG
+                            printf("tSubstract");
+                        #endif
+                        return tSubstract;
+                    }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
 #line 131 "lexical.l"
 {
-					#if DEBUG
-						printf("tMultiply");
-					#endif
-					return tMultiply;
-				}
+                        #if DEBUG
+                            printf("tMultiply");
+                        #endif
+                        return tMultiply;
+                    }
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
 #line 138 "lexical.l"
 {
-					#if DEBUG
-						printf("tDivide");
-					#endif
-					return tDivide;
-				}
+                        #if DEBUG
+                            printf("tDivide");
+                        #endif
+                        return tDivide;
+                    }
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
 #line 145 "lexical.l"
 {
-					#if DEBUG
-						printf("tEqual");
-					#endif
-					return tEqual;
-				}
+                        #if DEBUG
+                            printf("tEqual");
+                        #endif
+                        return tEqual;
+                    }
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
 #line 152 "lexical.l"
 {
-					#if DEBUG
-						printf(" ");
-					#endif
-				}
+                        #if DEBUG
+                            printf(" ");
+                        #endif
+                    }
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
 #line 158 "lexical.l"
 {
-					#if DEBUG
-						printf("\t");
-					#endif
-				}
+                        #if DEBUG
+                            printf("\t");
+                        #endif
+                    }
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
 #line 164 "lexical.l"
 {
-					#if DEBUG
-						printf(", ");
-					#endif
-					return tComma;
-				}
+                        #if DEBUG
+                            printf(", ");
+                        #endif
+                        return tComma;
+                    }
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
 #line 171 "lexical.l"
 {
-					#if DEBUG
-						printf(" ; ");
-					#endif
-					return tSemiColon;
-				}
+                        #if DEBUG
+                            printf(" ; ");
+                        #endif
+                        return tSemiColon;
+                    }
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
 #line 178 "lexical.l"
 {
-					#if DEBUG
-						printf("tNumber");
-					#endif
-					yylval.integer = atoi(yytext);
-					return tNumber;
-				}
+                        #if DEBUG
+                            printf("tNumber");
+                        #endif
+                        yylval.integer = atoi(yytext);
+                        return tNumber;
+                    }
 	YY_BREAK
 case 29:
 /* rule 29 can match eol */
 YY_RULE_SETUP
 #line 186 "lexical.l"
 {
-					#if DEBUG
-						printf("\n");
-					#endif
-				}
+                        #if DEBUG
+                            printf("\n");
+                        #endif
+                    }
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
 #line 192 "lexical.l"
 {
-					#if DEBUG
-						printf("tCompEqual");
-					#endif
-					return tCompEqual;
-				}
+                        #if DEBUG
+                            printf("tCompEqual");
+                        #endif
+                        return tCompEqual;
+                    }
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
 #line 199 "lexical.l"
 {
-					#if DEBUG
-						printf("tLt");
-					#endif
-					return tLt;
-				}
+                        #if DEBUG
+                            printf("tLt");
+                        #endif
+                        return tLt;
+                    }
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
 #line 206 "lexical.l"
 {
-					#if DEBUG
-						printf("tGt");
-					#endif
-					return tGt;
-				}
+                        #if DEBUG
+                            printf("tGt");
+                        #endif
+                        return tGt;
+                    }
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
 #line 213 "lexical.l"
 {
-					#if DEBUG
-						printf("tLte");
-					#endif
-					return tLte;
-				}
+                        #if DEBUG
+                            printf("tLte");
+                            #endif
+                            return tLte;
+                    }
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
 #line 220 "lexical.l"
 {
-					#if DEBUG
-						printf("tGte");
-					#endif
-					return tGte;
-				}
+                        #if DEBUG
+                            printf("tGte");
+                        #endif
+                        return tGte;
+                    }
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
 #line 227 "lexical.l"
 {
-					#if DEBUG
-						printf("tDifferent");
-					#endif
-					return tDifferent;
-				}		
+                        #if DEBUG
+                            printf("tDifferent");
+                        #endif
+                        return tDifferent;
+                    }
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
 #line 234 "lexical.l"
-{}
+{} ;
 	YY_BREAK
 case 37:
 YY_RULE_SETUP

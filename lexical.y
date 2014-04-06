@@ -1,10 +1,9 @@
 %{
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include "symbol.h"
 #include "list.h"
-#include "string.h"
+#include "utils.h"
 
 int_list jumpList;
 
@@ -273,41 +272,6 @@ Term		: tNumber
 			};
 
 %%
-
-void replaceAllString(char *buf, const char *orig, const char *replace) {
-    int olen, rlen;
-    char *s, *d;
-    char *tmpbuf;
-    
-    if (!buf || !*buf || !orig || !*orig || !replace)
-        return;
-    
-    tmpbuf = malloc(strlen(buf) + 1);
-    if (tmpbuf == NULL)
-        return;
-    
-    
-    olen = strlen(orig);
-    rlen = strlen(replace);
-    
-    s = buf;
-    d = tmpbuf;
-    
-    while (*s) {
-        if (strncmp(s, orig, olen) == 0) {
-            strcpy(d, replace);
-            s += olen;
-            d += rlen;
-        }
-        else
-        *d++ = *s++;
-    }
-    
-    *d = '\0';
-    
-    strcpy(buf, tmpbuf);
-    free(tmpbuf);
-}
 
 int secondTime() {
     int i ;
