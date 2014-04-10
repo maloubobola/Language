@@ -242,6 +242,13 @@ Function    : tName tEqual Operation
 				currentAddress -= INT_SIZE;
 			};
 
+Function    : tMultiply tName tEqual Operation
+            {
+                fprintf(file,"COP %d %d\n",symlook($2)->value,$4);
+                cptLine++;
+                currentAddress -= INT_SIZE;
+            };
+
 Operation   : Operation tAdd Operation
 			{
 				int min = $1 < $3 ? $1 : $3;
