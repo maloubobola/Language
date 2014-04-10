@@ -15,9 +15,10 @@ typedef struct symbol_table
 	char *name;
 	int value;
 	int address;
+    int pointer;
 } symbol_table;
 
-symbol_table * symlook(char *s) ;
+symbol_table * find_by_name(char *s) ;
 
 symbol_table * find_by_address(int address) ;
 

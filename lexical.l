@@ -66,51 +66,51 @@ main                {
 
 const               {
                         #if DEBUG
-                            printf("tConstant");
+                            printf("tConstantKey");
                         #endif
-                        return tConstant;
+                        return tConstantKey;
                     }
 
 int                 {
                         #if DEBUG
-                            printf("tInteger");
+                            printf("tIntegerKey");
                         #endif
-                        return tInteger;
+                        return tIntegerKey;
                     }
 
 if                  {
                         #if DEBUG
-                            printf("tIf");
+                            printf("tIfKey");
                         #endif
-                        return tIf;
+                        return tIfKey;
                     }
 
 else                {
                         #if DEBUG
-                            printf("\tElse");
+                            printf("\tElseKey");
                         #endif
-                        return tElse;
+                        return tElseKey;
                     }
 
 while               {
                         #if DEBUG
-                            printf("\tWhile");
+                            printf("\tWhileKey");
                         #endif
-                        return tWhile;
+                        return tWhileKey;
                     }
 
-printf              {
+print              {
                         #if DEBUG
-                            printf("tPrintf");
+                            printf("tPrintKey");
                         #endif
-                        return tPrintf;
+                        return tPrintKey;
                     }
 
 NULL                {
                         #if DEBUG
-                            printf("tNull");
+                            printf("tNullKey");
                         #endif
-                        return tNull;
+                        return tNullKey;
                     }
 
 string              {
@@ -118,21 +118,6 @@ string              {
                             printf("tStringKey");
                         #endif
                         return tStringKey;
-                    }
-
-\&                  {
-                        #if DEBUG
-                            printf("tRef");
-                        #endif
-                        return tRef;
-                    }
-
-[a-z][a-zA-Z_]*     {
-                        #if DEBUG
-                            printf("tName");
-                        #endif
-                        yylval.string = strdup(yytext);
-                        return tName;
                     }
 
 \+                  {
@@ -170,6 +155,65 @@ string              {
                         return tEqual;
                     }
 
+\=\=                {
+                        #if DEBUG
+                            printf("tCompEqual");
+                        #endif
+                        return tCompEqual;
+                    }
+
+\<                  {
+                        #if DEBUG
+                            printf("tLt");
+                        #endif
+                        return tLt;
+                    }
+
+\>                  {
+                        #if DEBUG
+                            printf("tGt");
+                        #endif
+                        return tGt;
+                    }
+
+\!\=                {
+                        #if DEBUG
+                            printf("tDifferent");
+                        #endif
+                        return tDifferent;
+                    }
+
+\&                  {
+                        #if DEBUG
+                            printf("tRef");
+                        #endif
+                        return tRef;
+                    }
+
+[a-z][a-zA-Z_]*     {
+                        #if DEBUG
+                            printf("tName");
+                        #endif
+                        yylval.string = strdup(yytext);
+                        return tName;
+                    }
+
+[0-9]+              {
+                        #if DEBUG
+                            printf("tNumber");
+                        #endif
+                        yylval.integer = atoi(yytext);
+                        return tNumber;
+                    }
+
+\"[a-zA-Z0-9]+\"    {
+                        #if DEBUG
+                            printf("tString");
+                        #endif
+                        yylval.string = strdup(yytext);
+                        return tString;
+                    }
+
 [ ]                 {
                         #if DEBUG
                             printf(" ");
@@ -196,68 +240,10 @@ string              {
                         return tSemiColon;
                     }
 
-[0-9]+              {
-                        #if DEBUG
-                            printf("tNumber");
-                        #endif
-                        yylval.integer = atoi(yytext);
-                        return tNumber;
-                    }
-
 \n                  {
                         #if DEBUG
                             printf("\n");
                         #endif
                     }
-				
-\=\=                {
-                        #if DEBUG
-                            printf("tCompEqual");
-                        #endif
-                        return tCompEqual;
-                    }
 
-\<                  {
-                        #if DEBUG
-                            printf("tLt");
-                        #endif
-                        return tLt;
-                    }
-				
-\>                  {
-                        #if DEBUG
-                            printf("tGt");
-                        #endif
-                        return tGt;
-                    }
-				
-\<\=                {
-                        #if DEBUG
-                            printf("tLte");
-                            #endif
-                            return tLte;
-                    }
-
-\>\=                {
-                        #if DEBUG
-                            printf("tGte");
-                        #endif
-                        return tGte;
-                    }
-				
-\!\=                {
-                        #if DEBUG
-                            printf("tDifferent");
-                        #endif
-                        return tDifferent;
-                    }
-
-\"[a-zA-Z0-9]+\"    {
-                        #if DEBUG
-                            printf("tString");
-                        #endif
-                        yylval.string = strdup(yytext);
-                        return tString;
-                    }
-
-.                   {} ;
+.                   {};

@@ -24,8 +24,8 @@ FILE *file = NULL;
 %token tCloseBracket
 %token tOpenBrace
 %token tCloseBrace
-%token tConstant
-%token tInteger
+%token tConstantKey
+%token tIntegerKey
 %token <string> tName
 %token tAdd
 %token tSubstract
@@ -36,18 +36,16 @@ FILE *file = NULL;
 %token tTab
 %token tComma
 %token tSemiColon
-%token tPrintf
+%token tPrintKey
 %token <integer> tNumber
 %token tCompEqual
 %token tLt
 %token tGt
-%token tLte
-%token tGte
 %token tDifferent
-%token tIf
-%token tElse
-%token tWhile
-%token tNull;
+%token tIfKey
+%token tElseKey
+%token tWhileKey
+%token tNullKey;
 %token tRef;
 %token tStringKey;
 %token <string> tString;
@@ -65,274 +63,312 @@ FILE *file = NULL;
 %type <integer> Comparison
 
 %%
-Start       : tInteger tMain tOpenBracket tCloseBracket tOpenBrace Body tCloseBrace {printf("\n\n#########\nSyntax ok\n#########\n");} ;
+Start       :   tIntegerKey tMain tOpenBracket tCloseBracket tOpenBrace Body tCloseBrace
+                {
+                    printf("Syntax correct\n");
+                }
+            ;
 
-Body        : Vars ;
-
-Body        : Vars
-			{
-				if(currentAddress == -1)
-                    currentAddress = declarationAddress;
-			}  
-			Functions ; 
-
-Vars        : Var tComma Vars ;
-
-Vars        : Var tSemiColon Vars ;
-
-Vars        : Var tSemiColon ;
-
-Var         : tInteger tName
-			{
-				symbol_table * symbtable = symlook($2);
-				setAddress(symbtable,declarationAddress);
-				declarationAddress += INT_SIZE;
-			};
-
-Var         : tInteger tName tEqual tNumber
-			{
-				symbol_table * symbtable = symlook($2);
-				setValue(symbtable,$4);
-				setAddress(symbtable,declarationAddress);
-				fprintf(file,"AFC %d %d\n",symbtable->address,symbtable->value);
-                cptLine++;
-				declarationAddress += INT_SIZE;
-			};
-
-Var         : tConstant tInteger tName tEqual tNumber
-			{
-				symbol_table * symbtable = symlook($3);
-				setValue(symbtable,$5);
-				setAddress(symbtable,declarationAddress);
-				fprintf(file,"AFC %d %d\n",symbtable->address,symbtable->value);
-				cptLine++;
-				declarationAddress += INT_SIZE;
-			};
-
-Var         : tStringKey tName tEqual tString
-            {
-                int size = strlen($4);
-                int i;
-                int j = 0;
-                symbol_table * symbtable = symlook($2);
-				setAddress(symbtable,declarationAddress);
-                for(i=0; i < size ; i++) {
-                    if($4[i] != '"') {
-                        fprintf(file,"AFC %d %d\n",symbtable->address + j,(int)$4[i]);
-                        cptLine++;
-                        j++;
+Body        :   Vars
+            |   Vars
+                {
+                    if(currentAddress == -1) {
+                        currentAddress = declarationAddress;
                     }
                 }
-                fprintf(file,"AFC %d %d\n",symbtable->address + size - 2,-1);
-				declarationAddress += size - 1;
-            } ;
+                Functions
+            ;
 
-Var         : Pointer ;
 
-Pointer     : tInteger tMultiply tName tEqual tNull
-            {
-                symbol_table * symbtable = symlook($3);
-            } ;
+Vars        :   Var tComma Vars
+            |   Var tSemiColon Vars
+            |   Var tSemiColon
+            ;
 
-Pointer     : tInteger tMultiply tName tEqual tRef tName
-            {
-                symbol_table * symbtable = symlook($3);
-				setValue(symbtable,symlook($6)->address);
-				setAddress(symbtable,declarationAddress);
-				fprintf(file,"AFC %d %d\n",symbtable->address,symbtable->value);
-				cptLine++;
-				declarationAddress += INT_SIZE;
-            } ;
-
-Functions 	: If ;
-
-Functions 	: If Functions ;
-
-Functions 	: While ;
-
-Functions 	: While Functions ;
-
-If 			: tIf tOpenBracket Comparison   
-			{
-				cptIf++;
-				fprintf(file,"JMF %d [%d]\n",$3, cptIf - 1);
-				cptLine++;
-			} 
-			tCloseBracket tOpenBrace Functions tCloseBrace 
-			{
-                jumpList = addLast(jumpList,cptLine + 2);
-			}
-			tElse tOpenBrace  
-			{
-				cptIf++;
-				fprintf(file,"JMP [%d]\n", cptIf - 1);
-				cptLine++;
-			} 
-			Functions tCloseBrace {
-                jumpList = addLast(jumpList,cptLine + 1);
-			};
-
-If			: tIf tOpenBracket Comparison   
-			{
-				cptIf++;
-				fprintf(file,"JMF %d [%d]\n",$3, cptIf);
-				cptLine++;
-			} 
-			tCloseBracket tOpenBrace Functions tCloseBrace 
-			{
-                jumpList = addLast(jumpList,cptLine + 1);
-			};
-
-While       : tWhile tOpenBracket Comparison
-            {
-                cptIf++;
-				fprintf(file,"JMF %d [%d]\n",$3, cptIf - 1);
-				cptLine++;
-                jumpList = addLast(jumpList,cptLine);
-            }
-            tCloseBracket tOpenBrace Functions tCloseBrace
-            {
-                cptIf++;
-                jumpList = addBeforelast(jumpList,cptLine + 2);
-                fprintf(file,"JMP [%d]\n", cptIf - 1);
-				cptLine++;
-            };
-			
-Comparison  : Term tCompEqual Term
-			{
-				int min = $1 < $3 ? $1 : $3;
-				fprintf(file,"EQU %d %d %d\n",min,$1,$3);
-				cptLine++;
-				$$ = min;
-                currentAddress -= INT_SIZE;
-			};
-			 
-Comparison  : Term tLt Term
-			{
-				int min = $1 < $3 ? $1 : $3;
-				fprintf(file,"INF %d %d %d\n",min,$1,$3);
-				cptLine++;
-				currentAddress -= INT_SIZE;
-			};
-			
-Comparison  : Term tLte Term 
-			{
-				int min = $1 < $3 ? $1 : $3;
-				fprintf(file,"INF %d %d %d\n",min,$1,$3);
-				cptLine++;
-				currentAddress -= INT_SIZE;
-			};
-			
-Comparison  : Term tGt Term
-			{
-				int min = $1 < $3 ? $1 : $3;
-				fprintf(file,"SUP %d %d %d\n",min,$1,$3);
-				cptLine++;
-				currentAddress -= INT_SIZE;
-			};
-			
-Comparison  : Term tGte Term
-			{
-				int min = $1 < $3 ? $1 : $3;
-				fprintf(file,"SUP %d %d %d\n",min,$1,$3);
-				cptLine++;
-				currentAddress -= INT_SIZE;
-			};
-
-Functions   : Function tSemiColon ;
-
-Functions   : Function tSemiColon Functions
-			{
-				
-			};		
-
-Function    : Operation;
-
-Function    : tPrintf tOpenBracket Operation tCloseBracket
-			{
-				fprintf(file,"PRI %d\n",$3);
-				cptLine++;
-                currentAddress -= INT_SIZE;
-			};
-
-Function    : tName tEqual Operation
-			{
-				fprintf(file,"COP %d %d\n",symlook($1)->address,$3);
-				cptLine++;
-				currentAddress -= INT_SIZE;
-			};
-
-Function    : tMultiply tName tEqual Operation
-            {
-                fprintf(file,"COP %d %d\n",symlook($2)->value,$4);
-                cptLine++;
-                currentAddress -= INT_SIZE;
-            };
-
-Operation   : Operation tAdd Operation
-			{
-				int min = $1 < $3 ? $1 : $3;
-				fprintf(file,"ADD %d %d %d\n",min,$1,$3);
-				cptLine++;
-				currentAddress -= INT_SIZE;
-			};
-
-Operation   : Operation tSubstract Operation
-			{
-				int min = $1 < $3 ? $1 : $3;
-				fprintf(file,"SOU %d %d %d\n",min,$1,$3);
-				cptLine++;
-				currentAddress -= INT_SIZE;
-			};
-
-Operation   : Operation tMultiply Operation
-			{
-				int min = $1 < $3 ? $1 : $3;
-				fprintf(file,"MUL %d %d %d\n",min,$1,$3);
-				cptLine++;
-				currentAddress -= INT_SIZE;
-			};
-
-Operation   : Operation tDivide Operation
-			{
-				int min = $1 < $3 ? $1 : $3;
-				fprintf(file,"DIV %d %d %d\n",min,$1,$3);
-				cptLine++;
-				currentAddress -= INT_SIZE;
-			};
-
-Operation	: Term ;
-
-Term 		: tName
-			{
-				fprintf(file,"COP %d %d\n",currentAddress,symlook($1)->address);
-				cptLine++;
-				$$ = currentAddress;
-				currentAddress += INT_SIZE;
-			};
-
-Term		: tNumber
-			{
-				fprintf(file,"AFC %d %d\n",currentAddress,$1);
-				cptLine++;
-				$$ = currentAddress;
-				currentAddress += INT_SIZE;
-			};
-
-Term		: tMultiply tName
-            {
-                symbol_table * symbtable = find_by_address(symlook($2)->address);
-                if(symbtable == NULL) {
-                    yyerror("Erreur de pointeur");
-                    exit(1);
+Var         :   tIntegerKey tName
+                {
+                    symbol_table * symbtable = find_by_name($2);
+                    
+                    symbtable->address = declarationAddress;
+                    symbtable->pointer = 0;
+                    declarationAddress += INT_SIZE;
                 }
-                fprintf(file,"COP %d %d\n",currentAddress,symbtable->value);
-				cptLine++;
-				$$ = currentAddress;
-				currentAddress += INT_SIZE;
-            };
+
+            |   tIntegerKey tName tEqual tNumber
+                {
+                    symbol_table * symbtable = find_by_name($2);
+                    
+                    symbtable->value = $4;
+                    symbtable->address = declarationAddress;
+                    symbtable->pointer = 0;
+                    
+                    fprintf(file,"AFC %d %d\n",symbtable->address,symbtable->value);
+                    
+                    cptLine++;
+                    declarationAddress += INT_SIZE;
+                }
+
+            |   tConstantKey tIntegerKey tName tEqual tNumber
+                {
+                    symbol_table * symbtable = find_by_name($3);
+                    
+                    symbtable->value = $5;
+                    symbtable->address = declarationAddress;
+                    symbtable->pointer = 0;
+                    
+                    fprintf(file,"AFC %d %d\n",symbtable->address,symbtable->value);
+                    
+                    cptLine++;
+                    declarationAddress += INT_SIZE;
+                }
+
+            |   tStringKey tName tEqual tString
+                {
+                    symbol_table * symbtable = find_by_name($2);
+                    int size = strlen($4);
+                    int i;
+                    int j = 0;
+                    
+                    symbtable->address = declarationAddress;
+                    symbtable->pointer = 0;
+
+                    for(i=0; i < size ; i++) {
+                        if($4[i] != '"') {
+                            fprintf(file,"AFC %d %d\n",symbtable->address + j,(int)$4[i]);
+                            cptLine++;
+                            j++;
+                        }
+                    }
+                    fprintf(file,"AFC %d %d\n",symbtable->address + size - 2,-1);
+                    
+                    declarationAddress += size - 1;
+                }
+
+            |   Pointer
+            ;
+
+Pointer     :   tIntegerKey tMultiply tName tEqual tNullKey
+                {
+                    symbol_table * symbtable = find_by_name($3);
+                    symbtable->pointer = 1;
+                }
+
+            |   tIntegerKey tMultiply tName tEqual tRef tName
+                {
+                    symbol_table * symbtable = find_by_name($3);
+                    
+                    symbtable->value = find_by_name($6)->address;
+                    symbtable->address = declarationAddress;
+                    symbtable->pointer = 1;
+                    
+                    fprintf(file,"AFC %d %d\n",symbtable->address,symbtable->value);
+                    
+                    cptLine++;
+                    declarationAddress += INT_SIZE;
+                }
+            ;
 
 
+Functions 	:   If
+
+            |   If Functions
+
+            |   While
+
+            |   While Functions
+
+            |   Function tSemiColon
+
+            |   Function tSemiColon Functions
+
+            ;
+
+If 			:  tIfKey tOpenBracket Comparison
+                {
+                    cptIf++;
+                    fprintf(file,"JMF %d [%d]\n",$3, cptIf - 1);
+                    cptLine++;
+                }
+                tCloseBracket tOpenBrace Functions tCloseBrace
+                {
+                    jumpList = addLast(jumpList,cptLine + 2);
+                }
+               tElseKey tOpenBrace
+                {
+                    cptIf++;
+                    fprintf(file,"JMP [%d]\n", cptIf - 1);
+                    cptLine++;
+                }
+                Functions tCloseBrace {
+                    jumpList = addLast(jumpList,cptLine + 1);
+                }
+
+            |  tIfKey tOpenBracket Comparison
+                {
+                    cptIf++;
+                    fprintf(file,"JMF %d [%d]\n",$3, cptIf);
+                    cptLine++;
+                }
+                tCloseBracket tOpenBrace Functions tCloseBrace
+                {
+                    jumpList = addLast(jumpList,cptLine + 1);
+                }
+            ;
+
+While       :  tWhileKey tOpenBracket Comparison
+                {
+                    cptIf++;
+                    fprintf(file,"JMF %d [%d]\n",$3, cptIf - 1);
+                    cptLine++;
+                    jumpList = addLast(jumpList,cptLine);
+                }
+                tCloseBracket tOpenBrace Functions tCloseBrace
+                {
+                    cptIf++;
+                    jumpList = addBeforelast(jumpList,cptLine + 2);
+                    fprintf(file,"JMP [%d]\n", cptIf - 1);
+                    cptLine++;
+                }
+            ;
+			
+Comparison  :   Term tCompEqual Term
+                {
+                    int min = $1 < $3 ? $1 : $3;
+                    
+                    fprintf(file,"EQU %d %d %d\n",min,$1,$3);
+                    
+                    cptLine++;
+                    $$ = min;
+                    currentAddress -= INT_SIZE;
+                }
+
+            |   Term tLt Term
+                {
+                    int min = $1 < $3 ? $1 : $3;
+                    
+                    fprintf(file,"INF %d %d %d\n",min,$1,$3);
+                    
+                    cptLine++;
+                    currentAddress -= INT_SIZE;
+                }
+
+            |   Term tGt Term
+                {
+                    int min = $1 < $3 ? $1 : $3;
+                    
+                    fprintf(file,"SUP %d %d %d\n",min,$1,$3);
+                    
+                    cptLine++;
+                    currentAddress -= INT_SIZE;
+                }
+            ;
+
+Function    :   Operation
+
+            |  tPrintKey tOpenBracket Operation tCloseBracket
+                {
+                    fprintf(file,"PRI %d\n",$3);
+                    
+                    cptLine++;
+                    currentAddress -= INT_SIZE;
+                }
+
+            |   tName tEqual Operation
+                {
+                    fprintf(file,"COP %d %d\n",find_by_name($1)->address,$3);
+                    
+                    cptLine++;
+                    currentAddress -= INT_SIZE;
+                }
+
+            |   tMultiply tName tEqual Operation
+                {
+                    fprintf(file,"COP %d %d\n",find_by_name($2)->value,$4);
+                    
+                    cptLine++;
+                    currentAddress -= INT_SIZE;
+                }
+            ;
+
+Operation   :   Operation tAdd Operation
+                {
+                    int min = $1 < $3 ? $1 : $3;
+                    
+                    fprintf(file,"ADD %d %d %d\n",min,$1,$3);
+                    
+                    cptLine++;
+                    currentAddress -= INT_SIZE;
+                }
+
+            |   Operation tSubstract Operation
+                {
+                    int min = $1 < $3 ? $1 : $3;
+                    
+                    fprintf(file,"SOU %d %d %d\n",min,$1,$3);
+                    
+                    cptLine++;
+                    currentAddress -= INT_SIZE;
+                }
+            |   Operation tMultiply Operation
+                {
+                    int min = $1 < $3 ? $1 : $3;
+                    
+                    fprintf(file,"MUL %d %d %d\n",min,$1,$3);
+                    
+                    cptLine++;
+                    currentAddress -= INT_SIZE;
+                }
+
+            |   Operation tDivide Operation
+                {
+                    int min = $1 < $3 ? $1 : $3;
+                    
+                    fprintf(file,"DIV %d %d %d\n",min,$1,$3);
+                    
+                    cptLine++;
+                    currentAddress -= INT_SIZE;
+                }
+
+            |   Term
+            ;
+
+Term 		:   tName
+                {
+                    fprintf(file,"COP %d %d\n",currentAddress,find_by_name($1)->address);
+                    cptLine++;
+                    $$ = currentAddress;
+                    currentAddress += INT_SIZE;
+                }
+
+            |   tNumber
+                {
+                    fprintf(file,"AFC %d %d\n",currentAddress,$1);
+                    cptLine++;
+                    $$ = currentAddress;
+                    currentAddress += INT_SIZE;
+                }
+
+            |   tMultiply tName
+                {
+                    symbol_table * symbtable = find_by_name($2);
+                    
+                    if(symbtable == NULL) {
+                        yyerror("Null pointer exception");
+                        exit(1);
+                    }
+                    
+                    if(symbtable->pointer == 0) {
+                        yyerror("Pointer operand required");
+                        exit(1);
+                    }
+                    
+                    fprintf(file,"COP %d %d\n",currentAddress,symbtable->value);
+                    
+                    cptLine++;
+                    $$ = currentAddress;
+                    currentAddress += INT_SIZE;
+                }
+            ;
 %%
 
 int secondTime() {
@@ -347,7 +383,7 @@ int secondTime() {
         char *string = malloc(fsize + 1);
         fread(string, fsize, 1, file);
         
-        fclose(file);                       //esay way to clear file
+        fclose(file);                       //esay way to clear a file
         file = fopen("output.txt","w+");
         
         for(i=0; i<size(jumpList); i++) {
@@ -372,7 +408,7 @@ int main(void) {
         fclose(file);
     }
     else {
-
+        yyerror("Impossible to execute second time parser");
     }
 	return 0;
 }

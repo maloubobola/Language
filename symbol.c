@@ -12,7 +12,7 @@
 
 symbol_table symtable[NSYMS];
 
-symbol_table * symlook(char *s) {
+symbol_table * find_by_name(char *s) {
   	symbol_table *sp;
   	for(sp = symtable; sp < &symtable[NSYMS]; sp++) {
 		if(sp->name && !strcmp(sp->name, s))
@@ -22,8 +22,7 @@ symbol_table * symlook(char *s) {
 	  		return sp;
 		}
   	}
-  	yyerror("Too many symbols");
-  	exit(1);
+  	return NULL;
 }
 
 symbol_table * find_by_address(int address) {

@@ -44,8 +44,8 @@
      tCloseBracket = 260,
      tOpenBrace = 261,
      tCloseBrace = 262,
-     tConstant = 263,
-     tInteger = 264,
+     tConstantKey = 263,
+     tIntegerKey = 264,
      tName = 265,
      tAdd = 266,
      tSubstract = 267,
@@ -56,21 +56,19 @@
      tTab = 272,
      tComma = 273,
      tSemiColon = 274,
-     tPrintf = 275,
+     tPrintKey = 275,
      tNumber = 276,
      tCompEqual = 277,
      tLt = 278,
      tGt = 279,
-     tLte = 280,
-     tGte = 281,
-     tDifferent = 282,
-     tIf = 283,
-     tElse = 284,
-     tWhile = 285,
-     tNull = 286,
-     tRef = 287,
-     tStringKey = 288,
-     tString = 289
+     tDifferent = 280,
+     tIfKey = 281,
+     tElseKey = 282,
+     tWhileKey = 283,
+     tNullKey = 284,
+     tRef = 285,
+     tStringKey = 286,
+     tString = 287
    };
 #endif
 /* Tokens.  */
@@ -79,8 +77,8 @@
 #define tCloseBracket 260
 #define tOpenBrace 261
 #define tCloseBrace 262
-#define tConstant 263
-#define tInteger 264
+#define tConstantKey 263
+#define tIntegerKey 264
 #define tName 265
 #define tAdd 266
 #define tSubstract 267
@@ -91,31 +89,29 @@
 #define tTab 272
 #define tComma 273
 #define tSemiColon 274
-#define tPrintf 275
+#define tPrintKey 275
 #define tNumber 276
 #define tCompEqual 277
 #define tLt 278
 #define tGt 279
-#define tLte 280
-#define tGte 281
-#define tDifferent 282
-#define tIf 283
-#define tElse 284
-#define tWhile 285
-#define tNull 286
-#define tRef 287
-#define tStringKey 288
-#define tString 289
+#define tDifferent 280
+#define tIfKey 281
+#define tElseKey 282
+#define tWhileKey 283
+#define tNullKey 284
+#define tRef 285
+#define tStringKey 286
+#define tString 287
 
 
 
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 57 "lexical.y"
+#line 55 "lexical.y"
 {char* string ; int integer;}
 /* Line 1529 of yacc.c.  */
-#line 119 "y.tab.h"
+#line 115 "y.tab.h"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1

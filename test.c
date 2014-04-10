@@ -1,6 +1,9 @@
 int main ( ) {
     string str = "test";
     int x = 2;
+    int *y = &x;
+    print(str);
+    
     /*
     int x = 1;
     int y = 2;
