@@ -5,6 +5,8 @@
 #include "list.h"
 #include "utils.h"
 
+int yyerror(char *err);
+
 int_list jumpList;
 
 int declarationAddress = 0;
@@ -45,6 +47,8 @@ FILE *file = NULL;
 %token tIf
 %token tElse
 %token tWhile
+%token tNull;
+%token tRef;
 
 %start Start
 
@@ -102,6 +106,23 @@ Var         : tConstant tInteger tName tEqual tNumber
 				cptLine++;
 				declarationAddress += INT_SIZE;
 			};
+
+Var         : Pointer ;
+
+Pointer     : tInteger tMultiply tName tEqual tNull
+            {
+                symbol_table * symbtable = symlook($3);
+            } ;
+
+Pointer         : tInteger tMultiply tName tEqual tRef tName
+            {
+                symbol_table * symbtable = symlook($3);
+				setValue(symbtable,symlook($6)->address);
+				setAddress(symbtable,declarationAddress);
+				fprintf(file,"AFC %d %d\n",symbtable->address,symbtable->value);
+				cptLine++;
+				declarationAddress += INT_SIZE;
+            } ;
 
 Functions 	: If ;
 
@@ -207,13 +228,13 @@ Functions   : Function tSemiColon Functions
 
 Function    : Operation;
 
-Function    : tPrintf tOpenBracket tName tCloseBracket
+Function    : tPrintf tOpenBracket Operation tCloseBracket
 			{
-				symbol_table * symbtable = symlook($3);
-				fprintf(file,"PRI %d\n",symbtable->address);
+				fprintf(file,"PRI %d\n",$3);
 				cptLine++;
+                currentAddress -= INT_SIZE;
 			};
-			
+
 Function    : tName tEqual Operation
 			{
 				fprintf(file,"COP %d %d\n",symlook($1)->address,$3);
@@ -270,6 +291,20 @@ Term		: tNumber
 				$$ = currentAddress;
 				currentAddress += INT_SIZE;
 			};
+
+Term		: tMultiply tName
+            {
+                symbol_table * symbtable = find_by_address(symlook($2)->address);
+                if(symbtable == NULL) {
+                    yyerror("Erreur de pointeur");
+                    exit(1);
+                }
+                fprintf(file,"COP %d %d\n",currentAddress,symbtable->value);
+				cptLine++;
+				$$ = currentAddress;
+				currentAddress += INT_SIZE;
+            };
+
 
 %%
 

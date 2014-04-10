@@ -66,7 +66,9 @@
      tDifferent = 282,
      tIf = 283,
      tElse = 284,
-     tWhile = 285
+     tWhile = 285,
+     tNull = 286,
+     tRef = 287
    };
 #endif
 /* Tokens.  */
@@ -98,16 +100,18 @@
 #define tIf 283
 #define tElse 284
 #define tWhile 285
+#define tNull 286
+#define tRef 287
 
 
 
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 51 "lexical.y"
+#line 55 "lexical.y"
 {char* string ; int integer;}
 /* Line 1529 of yacc.c.  */
-#line 111 "y.tab.h"
+#line 115 "y.tab.h"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1

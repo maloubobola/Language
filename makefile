@@ -7,7 +7,7 @@ LDFLAGS=
 EXEC=lexical
 SRC= list.c symbol.c utils.c
 OBJ= $(SRC:.c=.o)
-DEPS = list.h symbol.h utils.h
+DEPS = list.h symbol.h utils.h string.h
 
 all: $(EXEC)
 

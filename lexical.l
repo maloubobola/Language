@@ -106,6 +106,20 @@ printf              {
                         return tPrintf;
                     }
 
+NULL                {
+                        #if DEBUG
+                            printf("tNull");
+                        #endif
+                        return tNull;
+                    }
+
+\&                  {
+                        #if DEBUG
+                            printf("tRef");
+                        #endif
+                        return tRef;
+                    }
+
 [a-z][a-zA-Z_]*     {
                         #if DEBUG
                             printf("tName");

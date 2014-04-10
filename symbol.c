@@ -26,6 +26,15 @@ symbol_table * symlook(char *s) {
   	exit(1);
 }
 
+symbol_table * find_by_address(int address) {
+    symbol_table *sp;
+  	for(sp = symtable; sp < &symtable[NSYMS]; sp++) {
+        if(sp->address == address)
+            return sp;
+  	}
+  	return NULL;
+}
+
 void setValue(symbol_table * symtable, int value) {
 	symtable->value = value;
 }

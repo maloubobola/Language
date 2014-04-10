@@ -19,6 +19,8 @@ typedef struct symbol_table
 
 symbol_table * symlook(char *s) ;
 
+symbol_table * find_by_address(int address) ;
+
 int printSymTab(void);
 
 void setValue(symbol_table * symtable, int value);

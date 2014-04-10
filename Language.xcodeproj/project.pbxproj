@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXFileReference section */
+		DE0F023718F6B5A6003C9B26 /* string.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = string.h; sourceTree = "<group>"; };
+		DE0F023818F6B5AF003C9B26 /* string.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = string.c; sourceTree = "<group>"; };
 		E97E9EF818EA80D1002C4D2D /* output.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = output.txt; sourceTree = "<group>"; };
 		E9929C7818F20AAF00B02B09 /* utils.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = utils.c; sourceTree = "<group>"; };
 		E9929C7918F20AB900B02B09 /* utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = utils.h; sourceTree = "<group>"; };
@@ -27,6 +29,8 @@
 		E9C2F6B718E7D90A002129AC = {
 			isa = PBXGroup;
 			children = (
+				DE0F023818F6B5AF003C9B26 /* string.c */,
+				DE0F023718F6B5A6003C9B26 /* string.h */,
 				E9929C7918F20AB900B02B09 /* utils.h */,
 				E9929C7818F20AAF00B02B09 /* utils.c */,
 				E97E9EF818EA80D1002C4D2D /* output.txt */,

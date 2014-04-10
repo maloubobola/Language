@@ -1,13 +1,8 @@
 int main ( ) {
-	int x = 2;
-
-	while(x == 2) {
-		printf(x);
-        //printf(x);
-        /*
-        printf(x);
-        printf(x);
-        printf(x);
-        */
-	}
+    int y =3;
+	int *x = &y;
+    int z;
+    
+    z = y + *x;
+    printf(z + z);
 }
