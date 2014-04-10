@@ -113,6 +113,13 @@ NULL                {
                         return tNull;
                     }
 
+string              {
+                        #if DEBUG
+                            printf("tStringKey");
+                        #endif
+                        return tStringKey;
+                    }
+
 \&                  {
                         #if DEBUG
                             printf("tRef");
@@ -189,7 +196,7 @@ NULL                {
                         return tSemiColon;
                     }
 
-[0-9]*              {
+[0-9]+              {
                         #if DEBUG
                             printf("tNumber");
                         #endif
@@ -243,6 +250,14 @@ NULL                {
                             printf("tDifferent");
                         #endif
                         return tDifferent;
+                    }
+
+\"[a-zA-Z0-9]+\"    {
+                        #if DEBUG
+                            printf("tString");
+                        #endif
+                        yylval.string = strdup(yytext);
+                        return tString;
                     }
 
 .                   {} ;

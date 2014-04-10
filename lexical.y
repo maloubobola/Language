@@ -49,6 +49,8 @@ FILE *file = NULL;
 %token tWhile
 %token tNull;
 %token tRef;
+%token tStringKey;
+%token <string> tString;
 
 %start Start
 
@@ -107,6 +109,24 @@ Var         : tConstant tInteger tName tEqual tNumber
 				declarationAddress += INT_SIZE;
 			};
 
+Var         : tStringKey tName tEqual tString
+            {
+                int size = strlen($4);
+                int i;
+                int j = 0;
+                symbol_table * symbtable = symlook($2);
+				setAddress(symbtable,declarationAddress);
+                for(i=0; i < size ; i++) {
+                    if($4[i] != '"') {
+                        fprintf(file,"AFC %d %d\n",symbtable->address + j,(int)$4[i]);
+                        cptLine++;
+                        j++;
+                    }
+                }
+                fprintf(file,"AFC %d %d\n",symbtable->address + size - 2,-1);
+				declarationAddress += size - 1;
+            } ;
+
 Var         : Pointer ;
 
 Pointer     : tInteger tMultiply tName tEqual tNull
@@ -114,7 +134,7 @@ Pointer     : tInteger tMultiply tName tEqual tNull
                 symbol_table * symbtable = symlook($3);
             } ;
 
-Pointer         : tInteger tMultiply tName tEqual tRef tName
+Pointer     : tInteger tMultiply tName tEqual tRef tName
             {
                 symbol_table * symbtable = symlook($3);
 				setValue(symbtable,symlook($6)->address);
