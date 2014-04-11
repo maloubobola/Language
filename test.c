@@ -2,7 +2,7 @@ int main ( ) {
     string str = "test";
     int x = 2;
     int *y = &x;
-    print(str);
+    print(*x);
     
     /*
     int x = 1;

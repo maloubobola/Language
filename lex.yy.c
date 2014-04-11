@@ -508,8 +508,10 @@ char *yytext;
 #include <string.h>
 #include <stdlib.h>
 
+int currentLine = 1;
 
-#line 513 "lex.yy.c"
+
+#line 515 "lex.yy.c"
 
 #define INITIAL 0
 #define BLOCK_COMMENT 1
@@ -693,9 +695,9 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
     
-#line 11 "lexical.l"
+#line 13 "lexical.l"
 
-#line 699 "lex.yy.c"
+#line 701 "lex.yy.c"
 
 	if ( !(yy_init) )
 		{
@@ -780,26 +782,26 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 12 "lexical.l"
+#line 14 "lexical.l"
 {
                         BEGIN(BLOCK_COMMENT);
                     }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 16 "lexical.l"
+#line 18 "lexical.l"
 {
                         BEGIN(INITIAL);
                     }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 20 "lexical.l"
+#line 22 "lexical.l"
 {}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 22 "lexical.l"
+#line 24 "lexical.l"
 {
                         BEGIN(INLINE_COMMENT);
                     }
@@ -807,29 +809,29 @@ YY_RULE_SETUP
 case 5:
 /* rule 5 can match eol */
 YY_RULE_SETUP
-#line 26 "lexical.l"
+#line 28 "lexical.l"
 {
                         BEGIN(INITIAL);
                         }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 30 "lexical.l"
+#line 32 "lexical.l"
 {}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 32 "lexical.l"
+#line 34 "lexical.l"
 {
                         #if DEBUG
                             printf("tMain");
-                            #endif
-                            return tMain;
+                        #endif
+                        return tMain;
                     }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 39 "lexical.l"
+#line 41 "lexical.l"
 {
                         #if DEBUG
                             printf("tOpenBracket");
@@ -839,27 +841,27 @@ YY_RULE_SETUP
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 46 "lexical.l"
+#line 48 "lexical.l"
 {
                         #if DEBUG
                             printf("tCloseBracket");
-                            #endif
-                            return tCloseBracket;
+                        #endif
+                        return tCloseBracket;
                     }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 53 "lexical.l"
+#line 55 "lexical.l"
 {
                         #if DEBUG
                             printf("tOpenBrace");
-                            #endif
-                            return tOpenBrace;
+                        #endif
+                        return tOpenBrace;
                     }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 60 "lexical.l"
+#line 62 "lexical.l"
 {
                         #if DEBUG
                             printf("tCloseBrace");
@@ -869,7 +871,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 67 "lexical.l"
+#line 69 "lexical.l"
 {
                         #if DEBUG
                             printf("tConstantKey");
@@ -879,7 +881,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 74 "lexical.l"
+#line 76 "lexical.l"
 {
                         #if DEBUG
                             printf("tIntegerKey");
@@ -889,7 +891,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 81 "lexical.l"
+#line 83 "lexical.l"
 {
                         #if DEBUG
                             printf("tIfKey");
@@ -899,7 +901,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 88 "lexical.l"
+#line 90 "lexical.l"
 {
                         #if DEBUG
                             printf("\tElseKey");
@@ -909,7 +911,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 95 "lexical.l"
+#line 97 "lexical.l"
 {
                         #if DEBUG
                             printf("\tWhileKey");
@@ -919,7 +921,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 102 "lexical.l"
+#line 104 "lexical.l"
 {
                         #if DEBUG
                             printf("tPrintKey");
@@ -929,7 +931,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 109 "lexical.l"
+#line 111 "lexical.l"
 {
                         #if DEBUG
                             printf("tNullKey");
@@ -939,7 +941,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 116 "lexical.l"
+#line 118 "lexical.l"
 {
                         #if DEBUG
                             printf("tStringKey");
@@ -949,7 +951,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 123 "lexical.l"
+#line 125 "lexical.l"
 {
                         #if DEBUG
                             printf("tAdd");
@@ -959,7 +961,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 130 "lexical.l"
+#line 132 "lexical.l"
 {
                         #if DEBUG
                             printf("tSubstract");
@@ -969,7 +971,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 137 "lexical.l"
+#line 139 "lexical.l"
 {
                         #if DEBUG
                             printf("tMultiply");
@@ -979,7 +981,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 144 "lexical.l"
+#line 146 "lexical.l"
 {
                         #if DEBUG
                             printf("tDivide");
@@ -989,7 +991,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 151 "lexical.l"
+#line 153 "lexical.l"
 {
                         #if DEBUG
                             printf("tEqual");
@@ -999,7 +1001,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 158 "lexical.l"
+#line 160 "lexical.l"
 {
                         #if DEBUG
                             printf("tCompEqual");
@@ -1009,7 +1011,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 165 "lexical.l"
+#line 167 "lexical.l"
 {
                         #if DEBUG
                             printf("tLt");
@@ -1019,7 +1021,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 172 "lexical.l"
+#line 174 "lexical.l"
 {
                         #if DEBUG
                             printf("tGt");
@@ -1029,7 +1031,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 179 "lexical.l"
+#line 181 "lexical.l"
 {
                         #if DEBUG
                             printf("tDifferent");
@@ -1039,7 +1041,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 186 "lexical.l"
+#line 188 "lexical.l"
 {
                         #if DEBUG
                             printf("tRef");
@@ -1049,7 +1051,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 193 "lexical.l"
+#line 195 "lexical.l"
 {
                         #if DEBUG
                             printf("tName");
@@ -1060,7 +1062,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 201 "lexical.l"
+#line 203 "lexical.l"
 {
                         #if DEBUG
                             printf("tNumber");
@@ -1071,7 +1073,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 209 "lexical.l"
+#line 211 "lexical.l"
 {
                         #if DEBUG
                             printf("tString");
@@ -1082,7 +1084,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 217 "lexical.l"
+#line 219 "lexical.l"
 {
                         #if DEBUG
                             printf(" ");
@@ -1091,7 +1093,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 223 "lexical.l"
+#line 225 "lexical.l"
 {
                         #if DEBUG
                             printf("\t");
@@ -1100,7 +1102,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 229 "lexical.l"
+#line 231 "lexical.l"
 {
                         #if DEBUG
                             printf(", ");
@@ -1110,7 +1112,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 236 "lexical.l"
+#line 238 "lexical.l"
 {
                         #if DEBUG
                             printf(" ; ");
@@ -1121,24 +1123,25 @@ YY_RULE_SETUP
 case 37:
 /* rule 37 can match eol */
 YY_RULE_SETUP
-#line 243 "lexical.l"
+#line 245 "lexical.l"
 {
                         #if DEBUG
                             printf("\n");
                         #endif
+                        currentLine++;
                     }
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 249 "lexical.l"
+#line 252 "lexical.l"
 {};
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 250 "lexical.l"
+#line 253 "lexical.l"
 ECHO;
 	YY_BREAK
-#line 1142 "lex.yy.c"
+#line 1145 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(BLOCK_COMMENT):
 case YY_STATE_EOF(INLINE_COMMENT):
@@ -2137,4 +2140,4 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 250 "lexical.l"
+#line 253 "lexical.l"

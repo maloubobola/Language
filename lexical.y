@@ -14,6 +14,7 @@ int declarationAddress = 0;
 int currentAddress = -1;
 int cptIf = 0;
 int cptLine = 0;
+extern int currentLine;
 
 FILE *file = NULL;
 
@@ -52,7 +53,7 @@ FILE *file = NULL;
 
 %start Start
 
-%union {char* string ; int integer;}
+%union {char* string ; int integer; int line;}
 
 %left tAdd tSubstract
 %right tMultiply tDivide
@@ -358,7 +359,7 @@ Term 		:   tName
                     }
                     
                     if(symbtable->pointer == 0) {
-                        yyerror("Pointer operand required");
+                        yyerror("Given variable is not a pointer");
                         exit(1);
                     }
                     
@@ -369,6 +370,7 @@ Term 		:   tName
                     currentAddress += INT_SIZE;
                 }
             ;
+
 %%
 
 int secondTime() {
@@ -414,7 +416,7 @@ int main(void) {
 }
 
 int yyerror(char *err) {
-	printf("\n\n############\n%s\n############\n", err);
+	printf("Error (line %d) : %s\n", currentLine, err);
     return 0;
 }
 

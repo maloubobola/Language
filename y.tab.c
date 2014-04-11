@@ -151,6 +151,7 @@ int declarationAddress = 0;
 int currentAddress = -1;
 int cptIf = 0;
 int cptLine = 0;
+extern int currentLine;
 
 FILE *file = NULL;
 
@@ -176,10 +177,10 @@ FILE *file = NULL;
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 55 "lexical.y"
-{char* string ; int integer;}
+#line 56 "lexical.y"
+{char* string ; int integer; int line;}
 /* Line 193 of yacc.c.  */
-#line 183 "y.tab.c"
+#line 184 "y.tab.c"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
@@ -192,7 +193,7 @@ typedef union YYSTYPE
 
 
 /* Line 216 of yacc.c.  */
-#line 196 "y.tab.c"
+#line 197 "y.tab.c"
 
 #ifdef short
 # undef short
@@ -497,11 +498,11 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint16 yyrline[] =
 {
-       0,    66,    66,    72,    74,    73,    83,    84,    85,    88,
-      97,   111,   125,   147,   150,   156,   172,   174,   176,   178,
-     180,   182,   187,   193,   197,   186,   207,   206,   219,   218,
-     234,   245,   255,   266,   268,   276,   284,   293,   303,   312,
-     322,   332,   335,   343,   351
+       0,    67,    67,    73,    75,    74,    84,    85,    86,    89,
+      98,   112,   126,   148,   151,   157,   173,   175,   177,   179,
+     181,   183,   188,   194,   198,   187,   208,   207,   220,   219,
+     235,   246,   256,   267,   269,   277,   285,   294,   304,   313,
+     323,   333,   336,   344,   352
 };
 #endif
 
@@ -1465,14 +1466,14 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 67 "lexical.y"
+#line 68 "lexical.y"
     {
                     printf("Syntax correct\n");
                 }
     break;
 
   case 4:
-#line 74 "lexical.y"
+#line 75 "lexical.y"
     {
                     if(currentAddress == -1) {
                         currentAddress = declarationAddress;
@@ -1481,7 +1482,7 @@ yyreduce:
     break;
 
   case 9:
-#line 89 "lexical.y"
+#line 90 "lexical.y"
     {
                     symbol_table * symbtable = find_by_name((yyvsp[(2) - (2)].string));
                     
@@ -1492,7 +1493,7 @@ yyreduce:
     break;
 
   case 10:
-#line 98 "lexical.y"
+#line 99 "lexical.y"
     {
                     symbol_table * symbtable = find_by_name((yyvsp[(2) - (4)].string));
                     
@@ -1508,7 +1509,7 @@ yyreduce:
     break;
 
   case 11:
-#line 112 "lexical.y"
+#line 113 "lexical.y"
     {
                     symbol_table * symbtable = find_by_name((yyvsp[(3) - (5)].string));
                     
@@ -1524,7 +1525,7 @@ yyreduce:
     break;
 
   case 12:
-#line 126 "lexical.y"
+#line 127 "lexical.y"
     {
                     symbol_table * symbtable = find_by_name((yyvsp[(2) - (4)].string));
                     int size = strlen((yyvsp[(4) - (4)].string));
@@ -1548,7 +1549,7 @@ yyreduce:
     break;
 
   case 14:
-#line 151 "lexical.y"
+#line 152 "lexical.y"
     {
                     symbol_table * symbtable = find_by_name((yyvsp[(3) - (5)].string));
                     symbtable->pointer = 1;
@@ -1556,7 +1557,7 @@ yyreduce:
     break;
 
   case 15:
-#line 157 "lexical.y"
+#line 158 "lexical.y"
     {
                     symbol_table * symbtable = find_by_name((yyvsp[(3) - (6)].string));
                     
@@ -1572,7 +1573,7 @@ yyreduce:
     break;
 
   case 22:
-#line 187 "lexical.y"
+#line 188 "lexical.y"
     {
                     cptIf++;
                     fprintf(file,"JMF %d [%d]\n",(yyvsp[(3) - (3)].integer), cptIf - 1);
@@ -1581,14 +1582,14 @@ yyreduce:
     break;
 
   case 23:
-#line 193 "lexical.y"
+#line 194 "lexical.y"
     {
                     jumpList = addLast(jumpList,cptLine + 2);
                 }
     break;
 
   case 24:
-#line 197 "lexical.y"
+#line 198 "lexical.y"
     {
                     cptIf++;
                     fprintf(file,"JMP [%d]\n", cptIf - 1);
@@ -1597,14 +1598,14 @@ yyreduce:
     break;
 
   case 25:
-#line 202 "lexical.y"
+#line 203 "lexical.y"
     {
                     jumpList = addLast(jumpList,cptLine + 1);
                 }
     break;
 
   case 26:
-#line 207 "lexical.y"
+#line 208 "lexical.y"
     {
                     cptIf++;
                     fprintf(file,"JMF %d [%d]\n",(yyvsp[(3) - (3)].integer), cptIf);
@@ -1613,14 +1614,14 @@ yyreduce:
     break;
 
   case 27:
-#line 213 "lexical.y"
+#line 214 "lexical.y"
     {
                     jumpList = addLast(jumpList,cptLine + 1);
                 }
     break;
 
   case 28:
-#line 219 "lexical.y"
+#line 220 "lexical.y"
     {
                     cptIf++;
                     fprintf(file,"JMF %d [%d]\n",(yyvsp[(3) - (3)].integer), cptIf - 1);
@@ -1630,7 +1631,7 @@ yyreduce:
     break;
 
   case 29:
-#line 226 "lexical.y"
+#line 227 "lexical.y"
     {
                     cptIf++;
                     jumpList = addBeforelast(jumpList,cptLine + 2);
@@ -1640,7 +1641,7 @@ yyreduce:
     break;
 
   case 30:
-#line 235 "lexical.y"
+#line 236 "lexical.y"
     {
                     int min = (yyvsp[(1) - (3)].integer) < (yyvsp[(3) - (3)].integer) ? (yyvsp[(1) - (3)].integer) : (yyvsp[(3) - (3)].integer);
                     
@@ -1653,7 +1654,7 @@ yyreduce:
     break;
 
   case 31:
-#line 246 "lexical.y"
+#line 247 "lexical.y"
     {
                     int min = (yyvsp[(1) - (3)].integer) < (yyvsp[(3) - (3)].integer) ? (yyvsp[(1) - (3)].integer) : (yyvsp[(3) - (3)].integer);
                     
@@ -1665,7 +1666,7 @@ yyreduce:
     break;
 
   case 32:
-#line 256 "lexical.y"
+#line 257 "lexical.y"
     {
                     int min = (yyvsp[(1) - (3)].integer) < (yyvsp[(3) - (3)].integer) ? (yyvsp[(1) - (3)].integer) : (yyvsp[(3) - (3)].integer);
                     
@@ -1677,7 +1678,7 @@ yyreduce:
     break;
 
   case 34:
-#line 269 "lexical.y"
+#line 270 "lexical.y"
     {
                     fprintf(file,"PRI %d\n",(yyvsp[(3) - (4)].integer));
                     
@@ -1687,7 +1688,7 @@ yyreduce:
     break;
 
   case 35:
-#line 277 "lexical.y"
+#line 278 "lexical.y"
     {
                     fprintf(file,"COP %d %d\n",find_by_name((yyvsp[(1) - (3)].string))->address,(yyvsp[(3) - (3)].integer));
                     
@@ -1697,7 +1698,7 @@ yyreduce:
     break;
 
   case 36:
-#line 285 "lexical.y"
+#line 286 "lexical.y"
     {
                     fprintf(file,"COP %d %d\n",find_by_name((yyvsp[(2) - (4)].string))->value,(yyvsp[(4) - (4)].integer));
                     
@@ -1707,7 +1708,7 @@ yyreduce:
     break;
 
   case 37:
-#line 294 "lexical.y"
+#line 295 "lexical.y"
     {
                     int min = (yyvsp[(1) - (3)].integer) < (yyvsp[(3) - (3)].integer) ? (yyvsp[(1) - (3)].integer) : (yyvsp[(3) - (3)].integer);
                     
@@ -1719,7 +1720,7 @@ yyreduce:
     break;
 
   case 38:
-#line 304 "lexical.y"
+#line 305 "lexical.y"
     {
                     int min = (yyvsp[(1) - (3)].integer) < (yyvsp[(3) - (3)].integer) ? (yyvsp[(1) - (3)].integer) : (yyvsp[(3) - (3)].integer);
                     
@@ -1731,7 +1732,7 @@ yyreduce:
     break;
 
   case 39:
-#line 313 "lexical.y"
+#line 314 "lexical.y"
     {
                     int min = (yyvsp[(1) - (3)].integer) < (yyvsp[(3) - (3)].integer) ? (yyvsp[(1) - (3)].integer) : (yyvsp[(3) - (3)].integer);
                     
@@ -1743,7 +1744,7 @@ yyreduce:
     break;
 
   case 40:
-#line 323 "lexical.y"
+#line 324 "lexical.y"
     {
                     int min = (yyvsp[(1) - (3)].integer) < (yyvsp[(3) - (3)].integer) ? (yyvsp[(1) - (3)].integer) : (yyvsp[(3) - (3)].integer);
                     
@@ -1755,7 +1756,7 @@ yyreduce:
     break;
 
   case 42:
-#line 336 "lexical.y"
+#line 337 "lexical.y"
     {
                     fprintf(file,"COP %d %d\n",currentAddress,find_by_name((yyvsp[(1) - (1)].string))->address);
                     cptLine++;
@@ -1765,7 +1766,7 @@ yyreduce:
     break;
 
   case 43:
-#line 344 "lexical.y"
+#line 345 "lexical.y"
     {
                     fprintf(file,"AFC %d %d\n",currentAddress,(yyvsp[(1) - (1)].integer));
                     cptLine++;
@@ -1775,7 +1776,7 @@ yyreduce:
     break;
 
   case 44:
-#line 352 "lexical.y"
+#line 353 "lexical.y"
     {
                     symbol_table * symbtable = find_by_name((yyvsp[(2) - (2)].string));
                     
@@ -1785,7 +1786,7 @@ yyreduce:
                     }
                     
                     if(symbtable->pointer == 0) {
-                        yyerror("Pointer operand required");
+                        yyerror("Given variable is not a pointer");
                         exit(1);
                     }
                     
@@ -1799,7 +1800,7 @@ yyreduce:
 
 
 /* Line 1267 of yacc.c.  */
-#line 1803 "y.tab.c"
+#line 1804 "y.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -2013,7 +2014,7 @@ yyreturn:
 }
 
 
-#line 372 "lexical.y"
+#line 374 "lexical.y"
 
 
 int secondTime() {
@@ -2059,7 +2060,7 @@ int main(void) {
 }
 
 int yyerror(char *err) {
-	printf("\n\n############\n%s\n############\n", err);
+	printf("Error (line %d) : %s\n", currentLine, err);
     return 0;
 }
 

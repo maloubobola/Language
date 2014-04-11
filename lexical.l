@@ -3,6 +3,8 @@
 #include "symbol.h"
 #include <string.h>
 #include <stdlib.h>
+
+int currentLine = 1;
 %}
 
 %x BLOCK_COMMENT
@@ -32,8 +34,8 @@
 main                {
                         #if DEBUG
                             printf("tMain");
-                            #endif
-                            return tMain;
+                        #endif
+                        return tMain;
                     }
 
 \(                  {
@@ -46,15 +48,15 @@ main                {
 \)                  {
                         #if DEBUG
                             printf("tCloseBracket");
-                            #endif
-                            return tCloseBracket;
+                        #endif
+                        return tCloseBracket;
                     }
 
 \{                  {
                         #if DEBUG
                             printf("tOpenBrace");
-                            #endif
-                            return tOpenBrace;
+                        #endif
+                        return tOpenBrace;
                     }
 
 \}                  {
@@ -244,6 +246,7 @@ string              {
                         #if DEBUG
                             printf("\n");
                         #endif
+                        currentLine++;
                     }
 
 .                   {};
