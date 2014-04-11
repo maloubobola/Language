@@ -5,7 +5,9 @@
 #include "list.h"
 #include "utils.h"
 
-int yyerror(char *err);
+#define yyparse compiler_parse
+#define yylex compiler_lex
+#define yyerror compiler_error
 
 int_list jumpList;
 
@@ -17,9 +19,9 @@ int cptLine = 0;
 extern int currentLine;
 
 FILE *file = NULL;
-
 %}
 
+%name-prefix="compiler"
 %token tMain
 %token tOpenBracket
 %token tCloseBracket
@@ -81,12 +83,21 @@ Body        :   Vars
             ;
 
 
-Vars        :   Var tComma Vars
+Vars        :   Var Vars
             |   Var tSemiColon Vars
             |   Var tSemiColon
             ;
 
-Var         :   tIntegerKey tName
+Var         :   tComma tName
+                {
+                    symbol_table * symbtable = find_by_name($2);
+                    
+                    symbtable->address = declarationAddress;
+                    symbtable->pointer = 0;
+                    declarationAddress += INT_SIZE;
+                }
+
+            |   tIntegerKey tName
                 {
                     symbol_table * symbtable = find_by_name($2);
                     
@@ -354,12 +365,12 @@ Term 		:   tName
                     symbol_table * symbtable = find_by_name($2);
                     
                     if(symbtable == NULL) {
-                        yyerror("Null pointer exception");
+                        compiler_error("Null pointer exception");
                         exit(1);
                     }
                     
                     if(symbtable->pointer == 0) {
-                        yyerror("Given variable is not a pointer");
+                        compiler_error("Given variable is not a pointer");
                         exit(1);
                     }
                     
@@ -405,18 +416,20 @@ int main(void) {
     file = fopen("output.txt","w+");
     
     if(file != NULL) {
-        yyparse();
+        compiler_parse();
+        printSymTab();
         secondTime();
         fclose(file);
     }
     else {
-        yyerror("Impossible to execute second time parser");
+        compiler_error("Impossible to execute second time parser");
     }
 	return 0;
 }
 
-int yyerror(char *err) {
-	printf("Error (line %d) : %s\n", currentLine, err);
+int compiler_error(char *err)
+{
+    printf("Error %d: %s\n", currentLine, err);
     return 0;
 }
 

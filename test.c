@@ -1,19 +1,12 @@
 int main ( ) {
-    string str = "test";
-    int x = 2;
-    int *y = &x;
-    print(*x);
+    int i,j,k,r;
+    i = 3;
+    j = 4;
+    k = 8;
     
-    /*
-    int x = 1;
-    int y = 2;
-	int *z = &y;
+    print(i);
     
-    int z;
-    z = y + *x;
-    printf(z + z);
-     
-    *z = x;
-    */
+    r= i + j * k;
     
+    print(r);
 }

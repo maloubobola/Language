@@ -1,12 +1,17 @@
 %{
-#include "y.tab.h"
+#include "compiler.tab.h"
 #include "symbol.h"
 #include <string.h>
 #include <stdlib.h>
 
 int currentLine = 1;
+
+#define yyparse compiler_parse
+#define yylex compiler_lex
 %}
 
+%option prefix="compiler"
+%option noyywrap
 %x BLOCK_COMMENT
 %x INLINE_COMMENT
 
@@ -192,30 +197,6 @@ string              {
                         return tRef;
                     }
 
-[a-z][a-zA-Z_]*     {
-                        #if DEBUG
-                            printf("tName");
-                        #endif
-                        yylval.string = strdup(yytext);
-                        return tName;
-                    }
-
-[0-9]+              {
-                        #if DEBUG
-                            printf("tNumber");
-                        #endif
-                        yylval.integer = atoi(yytext);
-                        return tNumber;
-                    }
-
-\"[a-zA-Z0-9]+\"    {
-                        #if DEBUG
-                            printf("tString");
-                        #endif
-                        yylval.string = strdup(yytext);
-                        return tString;
-                    }
-
 [ ]                 {
                         #if DEBUG
                             printf(" ");
@@ -230,7 +211,7 @@ string              {
 
 ,                   {
                         #if DEBUG
-                            printf(", ");
+                            printf(",");
                         #endif
                         return tComma;
                     }
@@ -247,6 +228,30 @@ string              {
                             printf("\n");
                         #endif
                         currentLine++;
+                    }
+
+[a-z][a-zA-Z_]*     {
+                        #if DEBUG
+                            printf("tName");
+                        #endif
+                        compilerlval.string = strdup(yytext);
+                        return tName;
+                    }
+
+[0-9]+              {
+                        #if DEBUG
+                            printf("tNumber");
+                        #endif
+                        compilerlval.integer = atoi(yytext);
+                        return tNumber;
+                    }
+
+\"[a-zA-Z0-9]+\"    {
+                        #if DEBUG
+                            printf("tString");
+                        #endif
+                        compilerlval.string = strdup(yytext);
+                        return tString;
                     }
 
 .                   {};

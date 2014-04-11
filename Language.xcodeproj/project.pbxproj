@@ -7,18 +7,17 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		DE0F023718F6B5A6003C9B26 /* string.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = string.h; sourceTree = "<group>"; };
-		DE0F023818F6B5AF003C9B26 /* string.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = string.c; sourceTree = "<group>"; };
+		DE7CA08A18F80379006CC002 /* interpreter.l */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.lex; path = interpreter.l; sourceTree = "<group>"; };
+		DE7CA08B18F82059006CC002 /* interpreter.y */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.yacc; path = interpreter.y; sourceTree = "<group>"; };
+		DE7CA08C18F83F3D006CC002 /* interpreter_table.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = interpreter_table.c; sourceTree = "<group>"; };
+		DE7CA08D18F83F47006CC002 /* interpreter_table.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = interpreter_table.h; sourceTree = "<group>"; };
 		E97E9EF818EA80D1002C4D2D /* output.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = output.txt; sourceTree = "<group>"; };
 		E9929C7818F20AAF00B02B09 /* utils.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = utils.c; sourceTree = "<group>"; };
 		E9929C7918F20AB900B02B09 /* utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = utils.h; sourceTree = "<group>"; };
-		E9C2F6C218E7D91B002129AC /* lex.yy.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = lex.yy.c; sourceTree = "<group>"; };
-		E9C2F6C318E7D91B002129AC /* lexical.l */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.lex; path = lexical.l; sourceTree = "<group>"; };
-		E9C2F6C418E7D91B002129AC /* lexical.y */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.yacc; path = lexical.y; sourceTree = "<group>"; };
+		E9C2F6C318E7D91B002129AC /* compiler.l */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.lex; path = compiler.l; sourceTree = "<group>"; };
+		E9C2F6C418E7D91B002129AC /* compiler.y */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.yacc; path = compiler.y; sourceTree = "<group>"; };
 		E9C2F6C518E7D91B002129AC /* makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = makefile; sourceTree = "<group>"; };
 		E9C2F6C718E7D91B002129AC /* test.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = test.c; sourceTree = "<group>"; };
-		E9C2F6C818E7D91B002129AC /* y.tab.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = y.tab.c; sourceTree = "<group>"; };
-		E9C2F6C918E7D91B002129AC /* y.tab.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = y.tab.h; sourceTree = "<group>"; };
 		E9F06D3718E8827D003394AA /* list.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = list.h; sourceTree = "<group>"; };
 		E9F06D3818E88287003394AA /* list.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = list.c; sourceTree = "<group>"; };
 		E9F06D3918E893B4003394AA /* symbol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = symbol.h; sourceTree = "<group>"; };
@@ -29,21 +28,20 @@
 		E9C2F6B718E7D90A002129AC = {
 			isa = PBXGroup;
 			children = (
-				DE0F023818F6B5AF003C9B26 /* string.c */,
-				DE0F023718F6B5A6003C9B26 /* string.h */,
+				E97E9EF818EA80D1002C4D2D /* output.txt */,
+				E9C2F6C518E7D91B002129AC /* makefile */,
 				E9929C7918F20AB900B02B09 /* utils.h */,
 				E9929C7818F20AAF00B02B09 /* utils.c */,
-				E97E9EF818EA80D1002C4D2D /* output.txt */,
 				E9F06D3818E88287003394AA /* list.c */,
 				E9F06D3718E8827D003394AA /* list.h */,
-				E9C2F6C518E7D91B002129AC /* makefile */,
-				E9C2F6C218E7D91B002129AC /* lex.yy.c */,
-				E9C2F6C818E7D91B002129AC /* y.tab.c */,
-				E9C2F6C918E7D91B002129AC /* y.tab.h */,
-				E9C2F6C318E7D91B002129AC /* lexical.l */,
-				E9C2F6C418E7D91B002129AC /* lexical.y */,
+				E9C2F6C318E7D91B002129AC /* compiler.l */,
+				E9C2F6C418E7D91B002129AC /* compiler.y */,
 				E9F06D3918E893B4003394AA /* symbol.h */,
 				E9F06D3A18E893C2003394AA /* symbol.c */,
+				DE7CA08A18F80379006CC002 /* interpreter.l */,
+				DE7CA08B18F82059006CC002 /* interpreter.y */,
+				DE7CA08D18F83F47006CC002 /* interpreter_table.h */,
+				DE7CA08C18F83F3D006CC002 /* interpreter_table.c */,
 				E9C2F6C718E7D91B002129AC /* test.c */,
 			);
 			sourceTree = "<group>";

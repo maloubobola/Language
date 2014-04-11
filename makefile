@@ -1,29 +1,38 @@
 CC=gcc
 LEX=lex
-YACC=yacc -d
+YACC=bison -d
 RM=rm -rf
 CFLAGS=-Wall
 LDFLAGS=
-EXEC=lexical
-SRC= list.c symbol.c utils.c
+EXEC=compiler interpreter
+SRC= list.c symbol.c utils.c interpreter_table.c
 OBJ= $(SRC:.c=.o)
-DEPS = list.h symbol.h utils.h string.h
+DEPS = list.h symbol.h utils.h interpreter_table.h
 
 all: $(EXEC)
 
-lexical: lex.yy.c y.tab.c $(OBJ)
-	gcc lex.yy.c y.tab.c $(SRC) -o lexical -ll -ly
+compiler: lex.compiler.c compiler.tab.c $(OBJ)
+	gcc lex.compiler.c compiler.tab.c $(SRC) -o compiler -ll -ly
+
+interpreter: lex.interpreter.c interpreter.tab.c $(OBJ)
+	gcc lex.interpreter.c interpreter.tab.c $(SRC) -o interpreter -ll -ly
 
 %.o: $(DEPS)
 
 %.o: %.c
 	$(CC) -o $@ -c $< $(CFLAGS)
 
-lex.yy.c: lexical.l
-	$(LEX) lexical.l
+lex.compiler.c: compiler.l
+	$(LEX) compiler.l
 
-y.tab.c: lexical.y
-	$(YACC) lexical.y
+compiler.tab.c: compiler.y
+	$(YACC) compiler.y
+    
+lex.interpreter.c: interpreter.l
+	$(LEX) interpreter.l
+
+interpreter.tab.c: interpreter.y
+	$(YACC) interpreter.y
 
 clean:
 	$(RM) *.o

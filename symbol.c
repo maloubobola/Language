@@ -48,7 +48,7 @@ int printSymTab(void) {
 	for(sp = symtable; sp < &symtable[NSYMS]; sp++) {
 		if(sp->name != NULL && sp->value)
 			printf("%s\t%d\t%d\n", sp->name, sp->value, sp->address);
-		else if(sp->name != NULL && sp->address)
+		else if(sp->name != NULL && sp->address >= 0)
 			printf("%s\t-\t%d\n", sp->name, sp->address);
 		else if(sp->name != NULL)
 			printf("%s\t-\t-\n", sp->name);
