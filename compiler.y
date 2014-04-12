@@ -417,9 +417,9 @@ int main(void) {
     
     if(file != NULL) {
         compiler_parse();
-        printSymTab();
         secondTime();
         fclose(file);
+        system("./interpreter");
     }
     else {
         compiler_error("Impossible to execute second time parser");

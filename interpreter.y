@@ -6,8 +6,12 @@
     #define yyparse interpreter_parse
     #define yylex interpreter_lex
     #define yyerror interpreter_error
+    #define yyin interpreter_in
     
     extern int currentLine;
+    extern FILE *interpreter_in;
+    
+    FILE *file = NULL;
 %}
 
 %name-prefix="interpreter_"
@@ -38,9 +42,9 @@ Start       :   Commands
                 }
             ;
 
-Commands    :   Command Commands
+Commands    :   Commands Command
                 {
-                
+                    
                 }
 
             |   Command
@@ -132,11 +136,15 @@ Command     :   tADD tNumber tNumber tNumber
                 {
                     printf("%d\n",interpreter_get_value($2));
                 }
-;
+            ;
 
 %%
 int main(void) {
-    interpreter_parse();
+    file = fopen("output.txt","r");
+    if(file != NULL) {
+        interpreter_in = file;
+        interpreter_parse();
+    }
 	return 0;
 }
 

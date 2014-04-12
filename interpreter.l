@@ -5,11 +5,12 @@
     #define yyparse interpreter_parse
     #define yylex interpreter_lex
     #define yyerror interpreter_error
+    #define yyin interpreter_in
     
     int currentLine = 1;
 %}
 
-%option prefix="interpreter"
+%option prefix="interpreter_"
 %option noyywrap
 
 %%

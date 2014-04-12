@@ -15,7 +15,7 @@ compiler: lex.compiler.c compiler.tab.c $(OBJ)
 	gcc lex.compiler.c compiler.tab.c $(SRC) -o compiler -ll -ly
 
 interpreter: lex.interpreter.c interpreter.tab.c $(OBJ)
-	gcc lex.interpreter.c interpreter.tab.c $(SRC) -o interpreter -ll -ly
+	gcc lex.interpreter_.c interpreter.tab.c $(SRC) -o interpreter -ll -ly
 
 %.o: $(DEPS)
 
@@ -28,7 +28,7 @@ lex.compiler.c: compiler.l
 compiler.tab.c: compiler.y
 	$(YACC) compiler.y
     
-lex.interpreter.c: interpreter.l
+lex.interpreter_.c: interpreter.l
 	$(LEX) interpreter.l
 
 interpreter.tab.c: interpreter.y
