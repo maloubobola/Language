@@ -23,6 +23,17 @@ typedef struct interpreter_element
 
 typedef interpreter_element* interpreter_table;
 
+typedef struct interpreter_command_element
+{
+    struct interpreter_command_element *next;
+	int code;
+    int op1;
+    int op2;
+    int op3;
+} interpreter_command_element;
+
+typedef interpreter_command_element* interpreter_command_table;
+
 void interpreter_set_value(int address, int value) ;
 
 int interpreter_get_value(int address) ;
@@ -32,5 +43,13 @@ void print_interpreter_table();
 void interpreter_add_first(int address) ;
 
 void interpreter_add_last(int address, int value) ;
+
+void interpreter_command_add(int code, int op1, int op2, int op3);
+
+void interpreter_command_print();
+
+int interpreter_command_size();
+
+interpreter_command_element * interpreter_get_command(int index);
 
 #endif

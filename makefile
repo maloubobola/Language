@@ -14,7 +14,7 @@ all: $(EXEC)
 compiler: lex.compiler.c compiler.tab.c $(OBJ)
 	gcc lex.compiler.c compiler.tab.c $(SRC) -o compiler -ll -ly
 
-interpreter: lex.interpreter.c interpreter.tab.c $(OBJ)
+interpreter: lex.interpreter_.c interpreter.tab.c $(OBJ)
 	gcc lex.interpreter_.c interpreter.tab.c $(SRC) -o interpreter -ll -ly
 
 %.o: $(DEPS)

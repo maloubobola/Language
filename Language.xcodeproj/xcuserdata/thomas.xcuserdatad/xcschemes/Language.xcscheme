@@ -45,7 +45,7 @@
       </PathRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "-c &quot;/Users/thomas/Documents/Language/lexical&lt; /Users/thomas/Documents/Language/test.c&quot;"
+            argument = "-c &quot;/Users/thomas/Documents/Language/compiler&lt; /Users/thomas/Documents/Language/test.c&quot;"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>

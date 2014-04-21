@@ -1,12 +1,10 @@
 int main ( ) {
-    int i,j,k,r;
-    i = 3;
-    j = 4;
-    k = 8;
-    
-    print(i);
-    
-    r= i + j * k;
-    
-    print(r);
+    int i,j,k;
+    i = 1;
+    j = 2;
+    k = 3;
+
+    if(i == 2) {
+    	print(j);
+    }
 }

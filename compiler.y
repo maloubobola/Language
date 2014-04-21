@@ -195,7 +195,18 @@ Functions 	:   If
 
             ;
 
-If 			:  tIfKey tOpenBracket Comparison
+If 			:   tIfKey tOpenBracket Comparison
+                {
+                    cptIf++;
+                    fprintf(file,"JMF %d [%d]\n",$3, cptIf - 1);
+                    cptLine++;
+                }
+                tCloseBracket tOpenBrace Functions tCloseBrace
+                {
+                    jumpList = addLast(jumpList,cptLine + 1);
+                }
+            |
+                tIfKey tOpenBracket Comparison
                 {
                     cptIf++;
                     fprintf(file,"JMF %d [%d]\n",$3, cptIf - 1);
@@ -205,23 +216,13 @@ If 			:  tIfKey tOpenBracket Comparison
                 {
                     jumpList = addLast(jumpList,cptLine + 2);
                 }
-               tElseKey tOpenBrace
+               	tElseKey
                 {
                     cptIf++;
                     fprintf(file,"JMP [%d]\n", cptIf - 1);
                     cptLine++;
                 }
-                Functions tCloseBrace {
-                    jumpList = addLast(jumpList,cptLine + 1);
-                }
-
-            |  tIfKey tOpenBracket Comparison
-                {
-                    cptIf++;
-                    fprintf(file,"JMF %d [%d]\n",$3, cptIf);
-                    cptLine++;
-                }
-                tCloseBracket tOpenBrace Functions tCloseBrace
+                tOpenBrace Functions tCloseBrace
                 {
                     jumpList = addLast(jumpList,cptLine + 1);
                 }
@@ -232,7 +233,7 @@ While       :  tWhileKey tOpenBracket Comparison
                     cptIf++;
                     fprintf(file,"JMF %d [%d]\n",$3, cptIf - 1);
                     cptLine++;
-                    jumpList = addLast(jumpList,cptLine);
+                    jumpList = addLast(jumpList,cptLine -  1);
                 }
                 tCloseBracket tOpenBrace Functions tCloseBrace
                 {
@@ -240,6 +241,7 @@ While       :  tWhileKey tOpenBracket Comparison
                     jumpList = addBeforelast(jumpList,cptLine + 2);
                     fprintf(file,"JMP [%d]\n", cptIf - 1);
                     cptLine++;
+                    currentAddress -= INT_SIZE;
                 }
             ;
 			
@@ -251,7 +253,7 @@ Comparison  :   Term tCompEqual Term
                     
                     cptLine++;
                     $$ = min;
-                    currentAddress -= INT_SIZE;
+                    //currentAddress -= INT_SIZE;
                 }
 
             |   Term tLt Term
@@ -261,7 +263,7 @@ Comparison  :   Term tCompEqual Term
                     fprintf(file,"INF %d %d %d\n",min,$1,$3);
                     
                     cptLine++;
-                    currentAddress -= INT_SIZE;
+                    //currentAddress -= INT_SIZE;
                 }
 
             |   Term tGt Term
@@ -271,13 +273,13 @@ Comparison  :   Term tCompEqual Term
                     fprintf(file,"SUP %d %d %d\n",min,$1,$3);
                     
                     cptLine++;
-                    currentAddress -= INT_SIZE;
+                    //currentAddress -= INT_SIZE;
                 }
             ;
 
 Function    :   Operation
 
-            |  tPrintKey tOpenBracket Operation tCloseBracket
+            |  	tPrintKey tOpenBracket Operation tCloseBracket
                 {
                     fprintf(file,"PRI %d\n",$3);
                     
