@@ -6,5 +6,7 @@ int main ( ) {
 
     if(i == 2) {
     	print(j);
+    } else {
+        print(k);
     }
 }

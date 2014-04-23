@@ -45,13 +45,16 @@ FILE *file = NULL;
 %token tLt
 %token tGt
 %token tDifferent
-%token tIfKey
 %token tElseKey
 %token tWhileKey
-%token tNullKey;
-%token tRef;
-%token tStringKey;
-%token <string> tString;
+%token tNullKey
+%token tRef
+%token tStringKey
+%token <string> tString
+
+%token tIfKey
+%nonassoc tIfX
+%nonassoc tElseKey
 
 %start Start
 
@@ -181,9 +184,9 @@ Pointer     :   tIntegerKey tMultiply tName tEqual tNullKey
             ;
 
 
-Functions 	:   If
+Functions 	:   Condition
 
-            |   If Functions
+            |   Condition Functions
 
             |   While
 
@@ -195,38 +198,36 @@ Functions 	:   If
 
             ;
 
-If 			:   tIfKey tOpenBracket Comparison
-                {
-                    cptIf++;
-                    fprintf(file,"JMF %d [%d]\n",$3, cptIf - 1);
-                    cptLine++;
-                }
-                tCloseBracket tOpenBrace Functions tCloseBrace
+Condition   :   If tOpenBrace Functions tCloseBrace %prec tIfX
                 {
                     jumpList = addLast(jumpList,cptLine + 1);
                 }
-            |
-                tIfKey tOpenBracket Comparison
+
+            |   If tOpenBrace Functions tCloseBrace %prec tIfX
+                {
+                    jumpList = addLast(jumpList,cptLine + 2);
+                }
+                Else tOpenBrace Functions tCloseBrace
+                {
+                    jumpList = addLast(jumpList,cptLine + 1);
+                }
+            ;
+
+If          :   tIfKey tOpenBracket Comparison
                 {
                     cptIf++;
                     fprintf(file,"JMF %d [%d]\n",$3, cptIf - 1);
                     cptLine++;
                 }
-                tCloseBracket tOpenBrace Functions tCloseBrace
-                {
-                    jumpList = addLast(jumpList,cptLine + 2);
-                }
-               	tElseKey
+                tCloseBracket
+
+Else        :   tElseKey
                 {
                     cptIf++;
                     fprintf(file,"JMP [%d]\n", cptIf - 1);
                     cptLine++;
                 }
-                tOpenBrace Functions tCloseBrace
-                {
-                    jumpList = addLast(jumpList,cptLine + 1);
-                }
-            ;
+
 
 While       :  tWhileKey tOpenBracket Comparison
                 {

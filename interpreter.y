@@ -148,7 +148,7 @@ void evaluate() {
             interpreter_set_value(element->op1,res);
             evaluateIndex++;
 		break;
-		evaluateIndex++;
+        
 		case 5:
 			interpreter_set_value(element->op1,interpreter_get_value(element->op2));
 			evaluateIndex++;
@@ -160,12 +160,12 @@ void evaluate() {
 		break;
 		
 		case 7:
-			evaluateIndex = element->op1;
+			evaluateIndex = element->op1 - 1;
 		break;
 		
 		case 8:
 			if(interpreter_get_value(element->op1) == 0) {
-				evaluateIndex = element->op2;
+				evaluateIndex = element->op2 - 1;
 			} else {
 				evaluateIndex++;
 			}			
@@ -219,6 +219,7 @@ int main(void) {
         while(evaluateIndex < interpreter_command_size()) {
         	evaluate();
         }
+        //print_interpreter_table();
     }
 	return 0;
 }
