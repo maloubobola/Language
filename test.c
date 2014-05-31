@@ -5,8 +5,6 @@ int main ( ) {
     j = 2;
     k = 3;
 
-    while (i < 10){
-    	print(j);
-        i = i + 1;
-    }
+    print(k*(i+j));
+
 }

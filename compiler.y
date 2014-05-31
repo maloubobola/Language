@@ -376,6 +376,10 @@ Operation   :   Operation tAdd Operation
                     compiler_free(currentAddress);
                     currentAddress -= INT_SIZE;
                 }
+            |   tOpenBracket Operation tCloseBracket
+                {
+                    $$ = $2;
+                }
 
             |   Term
 
