@@ -1,7 +1,7 @@
 %{
 #include <stdio.h>
 #include <stdlib.h>
-#include "symbol.h"
+#include "compiler_table.h"
 #include "list.h"
 #include "utils.h"
 
@@ -71,7 +71,7 @@ FILE *file = NULL;
 %%
 Start       :   tIntegerKey tMain tOpenBracket tCloseBracket tOpenBrace Body tCloseBrace
                 {
-                    printf("Syntax correct\n");
+                    printf("Compiler : Syntax correct\n");
                 }
             ;
 
@@ -93,31 +93,31 @@ Vars        :   Var Vars
 
 Var         :   tComma tName
                 {
-                    symbol_table * symbtable = find_by_name($2);
+                    compiler_element *element = find_by_name($2);
                     
-                    symbtable->address = declarationAddress;
-                    symbtable->pointer = 0;
+                    element->address = declarationAddress;
+                    element->pointer = 0;
                     declarationAddress += INT_SIZE;
                 }
 
             |   tIntegerKey tName
                 {
-                    symbol_table * symbtable = find_by_name($2);
+                    compiler_element *element = find_by_name($2);
                     
-                    symbtable->address = declarationAddress;
-                    symbtable->pointer = 0;
+                    element->address = declarationAddress;
+                    element->pointer = 0;
                     declarationAddress += INT_SIZE;
                 }
 
             |   tIntegerKey tName tEqual tNumber
                 {
-                    symbol_table * symbtable = find_by_name($2);
+                    compiler_element *element = find_by_name($2);
                     
-                    symbtable->value = $4;
-                    symbtable->address = declarationAddress;
-                    symbtable->pointer = 0;
+                    element->value = $4;
+                    element->address = declarationAddress;
+                    element->pointer = 0;
                     
-                    fprintf(file,"AFC %d %d\n",symbtable->address,symbtable->value);
+                    fprintf(file,"AFC %d %d\n",element->address,element->value);
                     
                     cptLine++;
                     declarationAddress += INT_SIZE;
@@ -125,13 +125,13 @@ Var         :   tComma tName
 
             |   tConstantKey tIntegerKey tName tEqual tNumber
                 {
-                    symbol_table * symbtable = find_by_name($3);
+                    compiler_element *element = find_by_name($3);
                     
-                    symbtable->value = $5;
-                    symbtable->address = declarationAddress;
-                    symbtable->pointer = 0;
+                    element->value = $5;
+                    element->address = declarationAddress;
+                    element->pointer = 0;
                     
-                    fprintf(file,"AFC %d %d\n",symbtable->address,symbtable->value);
+                    fprintf(file,"AFC %d %d\n",element->address,element->value);
                     
                     cptLine++;
                     declarationAddress += INT_SIZE;
@@ -139,22 +139,22 @@ Var         :   tComma tName
 
             |   tStringKey tName tEqual tString
                 {
-                    symbol_table * symbtable = find_by_name($2);
+                    compiler_element *element = find_by_name($2);
                     int size = strlen($4);
                     int i;
                     int j = 0;
                     
-                    symbtable->address = declarationAddress;
-                    symbtable->pointer = 0;
+                    element->address = declarationAddress;
+                    element->pointer = 0;
 
                     for(i=0; i < size ; i++) {
                         if($4[i] != '"') {
-                            fprintf(file,"AFC %d %d\n",symbtable->address + j,(int)$4[i]);
+                            fprintf(file,"AFC %d %d\n",element->address + j,(int)$4[i]);
                             cptLine++;
                             j++;
                         }
                     }
-                    fprintf(file,"AFC %d %d\n",symbtable->address + size - 2,-1);
+                    fprintf(file,"AFC %d %d\n",element->address + size - 2,-1);
                     
                     declarationAddress += size - 1;
                 }
@@ -164,19 +164,19 @@ Var         :   tComma tName
 
 Pointer     :   tIntegerKey tMultiply tName tEqual tNullKey
                 {
-                    symbol_table * symbtable = find_by_name($3);
-                    symbtable->pointer = 1;
+                    compiler_element *element = find_by_name($3);
+                    element->pointer = 1;
                 }
 
             |   tIntegerKey tMultiply tName tEqual tRef tName
                 {
-                    symbol_table * symbtable = find_by_name($3);
+                    compiler_element *element = find_by_name($3);
                     
-                    symbtable->value = find_by_name($6)->address;
-                    symbtable->address = declarationAddress;
-                    symbtable->pointer = 1;
+                    element->value = find_by_name($6)->address;
+                    element->address = declarationAddress;
+                    element->pointer = 1;
                     
-                    fprintf(file,"AFC %d %d\n",symbtable->address,symbtable->value);
+                    fprintf(file,"AFC %d %d\n",element->address,element->value);
                     
                     cptLine++;
                     declarationAddress += INT_SIZE;
@@ -365,19 +365,19 @@ Term 		:   tName
 
             |   tMultiply tName
                 {
-                    symbol_table * symbtable = find_by_name($2);
+                    compiler_element *element = find_by_name($2);
                     
-                    if(symbtable == NULL) {
+                    if(element == NULL) {
                         compiler_error("Null pointer exception");
                         exit(1);
                     }
                     
-                    if(symbtable->pointer == 0) {
+                    if(element->pointer == 0) {
                         compiler_error("Given variable is not a pointer");
                         exit(1);
                     }
                     
-                    fprintf(file,"COP %d %d\n",currentAddress,symbtable->value);
+                    fprintf(file,"COP %d %d\n",currentAddress,element->value);
                     
                     cptLine++;
                     $$ = currentAddress;
@@ -416,6 +416,7 @@ int secondTime() {
 }
 
 int main(void) {
+    
     file = fopen("output.txt","w+");
     
     if(file != NULL) {

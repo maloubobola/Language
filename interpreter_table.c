@@ -1,19 +1,23 @@
-//
-//  interpreter_table.c
-//  Language
-//
-//  Created by thomas  thiebaud on 11/04/2014.
-//  Copyright (c) 2014 thomas  thiebaud. All rights reserved.
-//
+/**
+ *  File : interpreter_table.c
+ *  Project : Language
+ *
+ *  Created by Thomas Thiebaud on 11/04/2014.
+ *  Copyright (c) 2014 thomas  thiebaud. All rights reserved.
+ */
 
 #include "interpreter_table.h"
 
-interpreter_table table = NULL;
+interpreter_table int_table = NULL;
 interpreter_command_table command_table = NULL;
 
-
+/**
+ *  Set the value of the element with the given address
+ *  @param address Given address
+ *  @param value New value
+ */
 void interpreter_set_value(int address, int value) {
-    interpreter_element *tmp = table;
+    interpreter_element *tmp = int_table;
     
     while(tmp != NULL) {
         if(tmp->address == address) {
@@ -27,8 +31,13 @@ void interpreter_set_value(int address, int value) {
     interpreter_add_last(address,value);
 }
 
+/**
+ *  Get the value of the element with the given address
+ *  @param address Given address
+ *  @return value
+ */
 int interpreter_get_value(int address) {
-    interpreter_element *tmp = table;
+    interpreter_element *tmp = int_table;
     
     while(tmp != NULL) {
         if(tmp->address == address) {
@@ -41,8 +50,11 @@ int interpreter_get_value(int address) {
     return 0;
 }
 
+/**
+ *  Print interpreter table
+ */
 void print_interpreter_table() {
-    interpreter_element *tmp = table;
+    interpreter_element *tmp = int_table;
     printf("Interpreter table\n");
     while(tmp != NULL) {
         printf("%d\t%d\n",tmp->address, tmp->value);
@@ -50,23 +62,31 @@ void print_interpreter_table() {
     }
 }
 
+/**
+ *  Add an element to the beginning with the given address
+ *  @param address Given address
+ */
 void interpreter_add_first(int address) {
     interpreter_element* element = malloc(sizeof(interpreter_element));
     element->address = address;
-    element->next = table;
-    table = element;
+    element->next = int_table;
+    int_table = element;
 }
 
+/**
+ *  Add an element to the end with the given address
+ *  @param address Given address
+ */
 void interpreter_add_last(int address, int value) {
     interpreter_element* element = malloc(sizeof(interpreter_element));
     element->address = address;
     element->value = value;
     element->next = NULL;
     
-    if(table == NULL)
-        table = element;
+    if(int_table == NULL)
+        int_table = element;
     else {void interpreter_command_print();
-        interpreter_element *tmp = table;
+        interpreter_element *tmp = int_table;
         
         while(tmp->next != NULL)
             tmp = tmp->next;
@@ -75,9 +95,15 @@ void interpreter_add_last(int address, int value) {
     }
 }
 
+/**
+ *  Add a command to the command list
+ *  @param code Command code
+ *  @param op1 First operand of the command
+ *  @param op2 Second operand of the command
+ *  @param op3 Third operand of the command
+ */
 void interpreter_command_add(int code, int op1, int op2, int op3) {
 	interpreter_command_element* element = malloc(sizeof(interpreter_command_element));
-    void interpreter_command_add(int code, int op1, int op2, int op3);
     element->code = code;
     element->op1 = op1;
     element->op2 = op2;
@@ -96,6 +122,9 @@ void interpreter_command_add(int code, int op1, int op2, int op3) {
     }
 }
 
+/**
+ *  Print the command list
+ */
 void interpreter_command_print() {
 	interpreter_command_element *tmp = command_table;
     printf("Interpreter command table\n");
@@ -105,6 +134,10 @@ void interpreter_command_print() {
     }
 }
 
+/**
+ *  Get the command list size
+ *  @return Command list size
+ */
 int interpreter_command_size() {
 	int i = 0; 
 	interpreter_command_element *tmp = command_table;
@@ -115,6 +148,11 @@ int interpreter_command_size() {
     return i;
 }
 
+/**
+ *  Get the command at the given index
+ *  @param index Given index
+ *  @return Command
+ */
 interpreter_command_element * interpreter_get_command(int index) {
 	int i;
 	

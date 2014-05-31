@@ -1,14 +1,20 @@
-//
-//  utils.c
-//  Language
-//
-//  Created by Thomas on 06/04/2014.
-//  Copyright (c) 2014 Thomas. All rights reserved.
-//
+/**
+ *  File : utils.c
+ *  Project : Language
+ *
+ *  Created by Thomas Thiebaud on 06/04/2014.
+ *  Copyright (c) 2014 thomas  thiebaud. All rights reserved.
+ */
 
 #include <stdio.h>
 #include "utils.h"
 
+/**
+ *  Replace all occurence of a string from a buffer by another one
+ *  @param buf Full text
+ *  @param orig String to replace
+ *  @param replace New string
+ */
 void replaceAllString(char *buf, const char *orig, const char *replace) {
     int olen, rlen;
     char *s, *d;

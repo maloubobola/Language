@@ -1,10 +1,10 @@
-//
-//  list.c
-//  Language
-//
-//  Created by Thomas on 30/03/2014.
-//  Copyright (c) 2014 Thomas. All rights reserved.
-//
+/**
+ *  File : list.c
+ *  Project : Language
+ *
+ *  Created by Thomas Thiebaud on 30/03/2014.
+ *  Copyright (c) 2014 thomas  thiebaud. All rights reserved.
+ */
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -12,6 +12,12 @@
 
 int_list jumpList = NULL;
 
+/**
+ *  Add an element to the beginning of the list
+ *  @param list List to change
+ *  @param value Element to add
+ *  @return Changed list
+ */
 int_list addFirst(int_list list, int value) {
     int_element* element = malloc(sizeof(int_element));
     element->value = value;
@@ -19,6 +25,12 @@ int_list addFirst(int_list list, int value) {
     return element;
 }
 
+/**
+ *  Add an element to the end of the list
+ *  @param list List to change
+ *  @param value Element to add
+ *  @return Changed list
+ */
 int_list addLast(int_list list, int value) {
     int_element* element = malloc(sizeof(int_element));
     
@@ -38,6 +50,12 @@ int_list addLast(int_list list, int value) {
     }
 }
 
+/**
+ *  Add an element to the penultimate place of the list
+ *  @param list List to change
+ *  @param value Element to add
+ *  @return Changed list
+ */
 int_list addBeforelast(int_list list, int value) {
     int_element* element = malloc(sizeof(int_element));
     
@@ -63,6 +81,10 @@ int_list addBeforelast(int_list list, int value) {
     }
 }
 
+/**
+ *  Print the given list
+ *  @param list List to print
+ */
 void print(int_list list) {
     int_element *tmp = list;
     
@@ -73,10 +95,20 @@ void print(int_list list) {
     printf("\n");
 }
 
+/**
+ *  Check if the given list is empty or not
+ *  @param list Given list
+ *  @return 1 if the list is empty, 0 otherwise
+ */
 int isEmpty(int_list list) {
     return (list == NULL) ? 1 : 0;
 }
 
+/**
+ *  Remove the first element of the given list
+ *  @param list Given list
+ *  @return Changed list
+ */
 int_list removeFirst(int_list list) {
     if(list != NULL) {
         int_element *secondElement = list->next;
@@ -87,6 +119,11 @@ int_list removeFirst(int_list list) {
         return NULL;
 }
 
+/**
+ *  Remove the last element of the given list
+ *  @param list Given list
+ *  @return Changed list
+ */
 int_list removeLast(int_list list) {
     if(list == NULL)
         return NULL;
@@ -109,6 +146,12 @@ int_list removeLast(int_list list) {
     return list;
 }
 
+/**
+ *  Find an element from a given list
+ *  @param list Given list
+ *  @param value Element to find
+ *  @return Changed list
+ */
 int_list find(int_list list, int value) {
     int_element *tmp = list;
     while(tmp != NULL) {
@@ -119,6 +162,12 @@ int_list find(int_list list, int value) {
     return NULL;
 }
 
+/**
+ *  Get the number of one element from the given list
+ *  @param list Given list
+ *  @param value Element to find
+ *  @return Number of element
+ */
 int numberOf(int_list list, int value) {
     int i = 0;
     
@@ -132,6 +181,12 @@ int numberOf(int_list list, int value) {
     return i;
 }
 
+/**
+ *  Get the element at the given index from the given list
+ *  @param list Given list
+ *  @param index Given index
+ *  @return Changed list
+ */
 int_list get(int_list list, int index) {
     int i;
 
@@ -144,10 +199,20 @@ int_list get(int_list list, int index) {
         return list;
 }
 
+/**
+ *  Get the value of a given integer list
+ *  @param list Given list
+ *  @return -1 if the list is NULL, value of the first element otherwise
+ */
 int value(int_list list) {
     return ((list == NULL) ? -1 : (list->value));
 }
 
+/**
+ *  Get the size of a given list
+ *  @param list Given list
+ *  @return Size of the list
+ */
 int size(int_list list) {
     int nb = 0;
     int_element *tmp = list;
@@ -159,6 +224,12 @@ int size(int_list list) {
     return nb;
 }
 
+/**
+ *  Remove all occurence of a given element from a given list
+ *  @param list Given list
+ *  @param value Given element
+ *  @return Changed list
+ */
 int_list removeAll(int_list list, int value) {
     if(list == NULL)
         return NULL;
@@ -174,6 +245,10 @@ int_list removeAll(int_list list, int value) {
     }
 }
 
+/**
+ *  Clear a given list
+ *  @return Changed list
+ */
 int_list clear(int_list list) {
     if(list == NULL)
         return NULL;

@@ -2,12 +2,12 @@ CC=gcc
 LEX=lex
 YACC=bison -d
 RM=rm -rf
-CFLAGS=-Wall
+CFLAGS= -Wall
 LDFLAGS=
 EXEC=compiler interpreter
-SRC= list.c symbol.c utils.c interpreter_table.c
+SRC= list.c utils.c interpreter_table.c compiler_table.c
 OBJ= $(SRC:.c=.o)
-DEPS = list.h symbol.h utils.h interpreter_table.h
+DEPS = list.h symbol.h utils.h interpreter_table.h compiler_table.h
 
 all: $(EXEC)
 

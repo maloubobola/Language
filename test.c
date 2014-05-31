@@ -4,7 +4,7 @@ int main ( ) {
     j = 2;
     k = 3;
 
-    if(i == 2) {
+    if(i == 1) {
     	print(j);
     } else {
         print(k);

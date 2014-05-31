@@ -39,7 +39,7 @@
 %%
 Start       :   Commands
                 {
-                    printf("Syntax correct\n");
+                    printf("Interpreter : Syntax correct\n");
                 }
             ;
 
