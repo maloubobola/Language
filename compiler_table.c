@@ -27,6 +27,7 @@ compiler_element * find_by_name(char *s, int isCreationAllowed) {
     if(isCreationAllowed == 1) {
         compiler_element* element = malloc(sizeof(compiler_element));
         element->name = strdup(s);
+        element->constante = 0;
         if(comp_table == NULL)
             comp_table = element;
         else {

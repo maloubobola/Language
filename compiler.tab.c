@@ -509,10 +509,10 @@ static const yytype_int8 yyrhs[] =
 static const yytype_uint16 yyrline[] =
 {
        0,    72,    72,    78,    80,    79,    89,    90,    91,    94,
-     103,   112,   126,   140,   162,   165,   171,   187,   189,   191,
-     193,   195,   197,   201,   207,   206,   217,   216,   224,   233,
-     232,   250,   265,   280,   296,   298,   307,   320,   334,   345,
-     355,   366,   377,   381,   393,   401
+     103,   112,   126,   141,   163,   166,   172,   188,   190,   192,
+     194,   196,   198,   202,   208,   207,   218,   217,   225,   234,
+     233,   251,   266,   281,   297,   299,   308,   323,   337,   348,
+     358,   369,   380,   384,   396,   404
 };
 #endif
 
@@ -1540,6 +1540,7 @@ yyreduce:
                     element->value = (yyvsp[(5) - (5)].integer);
                     element->address = declarationAddress;
                     element->pointer = 0;
+                    element->constante = 1;
                     
                     fprintf(file,"AFC %d %d\n",element->address,element->value);
                     
@@ -1549,7 +1550,7 @@ yyreduce:
     break;
 
   case 13:
-#line 141 "compiler.y"
+#line 142 "compiler.y"
     {
                     compiler_element *element = find_by_name((yyvsp[(2) - (4)].string),1);
                     int size = strlen((yyvsp[(4) - (4)].string));
@@ -1573,7 +1574,7 @@ yyreduce:
     break;
 
   case 15:
-#line 166 "compiler.y"
+#line 167 "compiler.y"
     {
                     compiler_element *element = find_by_name((yyvsp[(3) - (5)].string),1);
                     element->pointer = 1;
@@ -1581,7 +1582,7 @@ yyreduce:
     break;
 
   case 16:
-#line 172 "compiler.y"
+#line 173 "compiler.y"
     {
                     compiler_element *element = find_by_name((yyvsp[(3) - (6)].string),1);
                     
@@ -1597,28 +1598,28 @@ yyreduce:
     break;
 
   case 23:
-#line 202 "compiler.y"
+#line 203 "compiler.y"
     {
                     jumpList = addLast(jumpList,cptLine + 1);
                 ;}
     break;
 
   case 24:
-#line 207 "compiler.y"
+#line 208 "compiler.y"
     {
                     jumpList = addLast(jumpList,cptLine + 2);
                 ;}
     break;
 
   case 25:
-#line 211 "compiler.y"
+#line 212 "compiler.y"
     {
                     jumpList = addLast(jumpList,cptLine + 1);
                 ;}
     break;
 
   case 26:
-#line 217 "compiler.y"
+#line 218 "compiler.y"
     {
                     cptIf++;
                     fprintf(file,"JMF %d [%d]\n",(yyvsp[(3) - (3)].integer), cptIf - 1);
@@ -1627,7 +1628,7 @@ yyreduce:
     break;
 
   case 28:
-#line 225 "compiler.y"
+#line 226 "compiler.y"
     {
                     cptIf++;
                     fprintf(file,"JMP [%d]\n", cptIf - 1);
@@ -1636,7 +1637,7 @@ yyreduce:
     break;
 
   case 29:
-#line 233 "compiler.y"
+#line 234 "compiler.y"
     {
                     cptIf++;
                     fprintf(file,"JMF %d [%d]\n",(yyvsp[(3) - (3)].integer), cptIf - 1);
@@ -1646,7 +1647,7 @@ yyreduce:
     break;
 
   case 30:
-#line 240 "compiler.y"
+#line 241 "compiler.y"
     {
                     cptIf++;
                     jumpList = addBeforelast(jumpList,cptLine + 2);
@@ -1658,7 +1659,7 @@ yyreduce:
     break;
 
   case 31:
-#line 251 "compiler.y"
+#line 252 "compiler.y"
     {
                     int min = currentAddress < (yyvsp[(3) - (3)].integer) ? currentAddress : (yyvsp[(3) - (3)].integer);
                     
@@ -1675,7 +1676,7 @@ yyreduce:
     break;
 
   case 32:
-#line 266 "compiler.y"
+#line 267 "compiler.y"
     {
                     int min = currentAddress < (yyvsp[(3) - (3)].integer) ? currentAddress : (yyvsp[(3) - (3)].integer);
                     
@@ -1692,7 +1693,7 @@ yyreduce:
     break;
 
   case 33:
-#line 281 "compiler.y"
+#line 282 "compiler.y"
     {
                     int min = currentAddress < (yyvsp[(3) - (3)].integer) ? currentAddress : (yyvsp[(3) - (3)].integer);
                     
@@ -1709,7 +1710,7 @@ yyreduce:
     break;
 
   case 35:
-#line 299 "compiler.y"
+#line 300 "compiler.y"
     {
                     fprintf(file,"PRI %d\n",(yyvsp[(3) - (4)].integer));
                     
@@ -1720,11 +1721,13 @@ yyreduce:
     break;
 
   case 36:
-#line 308 "compiler.y"
+#line 309 "compiler.y"
     {
                     compiler_element *element = find_by_name((yyvsp[(1) - (3)].string),0);
                     if(element == NULL)
                         compiler_error("Variable non déclarée.");
+                    if(element->constante == 1)
+                        compiler_error("Impossible de modifier une constante.");
                     
                     fprintf(file,"COP %d %d\n",element->address,(yyvsp[(3) - (3)].integer));
                     
@@ -1735,7 +1738,7 @@ yyreduce:
     break;
 
   case 37:
-#line 321 "compiler.y"
+#line 324 "compiler.y"
     {
                     compiler_element *element = find_by_name((yyvsp[(2) - (4)].string),0);
                     if(element == NULL)
@@ -1750,7 +1753,7 @@ yyreduce:
     break;
 
   case 38:
-#line 335 "compiler.y"
+#line 338 "compiler.y"
     {
                     int min = (yyvsp[(1) - (3)].integer) < (yyvsp[(3) - (3)].integer) ? (yyvsp[(1) - (3)].integer) : (yyvsp[(3) - (3)].integer);
                     
@@ -1763,7 +1766,7 @@ yyreduce:
     break;
 
   case 39:
-#line 346 "compiler.y"
+#line 349 "compiler.y"
     {
                     int min = (yyvsp[(1) - (3)].integer) < (yyvsp[(3) - (3)].integer) ? (yyvsp[(1) - (3)].integer) : (yyvsp[(3) - (3)].integer);
                     
@@ -1776,7 +1779,7 @@ yyreduce:
     break;
 
   case 40:
-#line 356 "compiler.y"
+#line 359 "compiler.y"
     {
                     int min = (yyvsp[(1) - (3)].integer) < (yyvsp[(3) - (3)].integer) ? (yyvsp[(1) - (3)].integer) : (yyvsp[(3) - (3)].integer);
                     
@@ -1789,7 +1792,7 @@ yyreduce:
     break;
 
   case 41:
-#line 367 "compiler.y"
+#line 370 "compiler.y"
     {
                     int min = (yyvsp[(1) - (3)].integer) < (yyvsp[(3) - (3)].integer) ? (yyvsp[(1) - (3)].integer) : (yyvsp[(3) - (3)].integer);
                     
@@ -1802,7 +1805,7 @@ yyreduce:
     break;
 
   case 43:
-#line 382 "compiler.y"
+#line 385 "compiler.y"
     {
                     compiler_element *element = find_by_name((yyvsp[(1) - (1)].string),0);
                     if(element == NULL)
@@ -1816,7 +1819,7 @@ yyreduce:
     break;
 
   case 44:
-#line 394 "compiler.y"
+#line 397 "compiler.y"
     {
                     fprintf(file,"AFC %d %d\n",currentAddress,(yyvsp[(1) - (1)].integer));
                     cptLine++;
@@ -1826,7 +1829,7 @@ yyreduce:
     break;
 
   case 45:
-#line 402 "compiler.y"
+#line 405 "compiler.y"
     {
                     compiler_element *element = find_by_name((yyvsp[(2) - (2)].string),0);
                     if(element == NULL)
@@ -1846,7 +1849,7 @@ yyreduce:
 
 
 /* Line 1267 of yacc.c.  */
-#line 1850 "compiler.tab.c"
+#line 1853 "compiler.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -2060,7 +2063,7 @@ yyreturn:
 }
 
 
-#line 419 "compiler.y"
+#line 422 "compiler.y"
 
 
 int secondTime() {

@@ -25,6 +25,7 @@ typedef struct compiler_element
 	int value;
 	int address;
     int pointer;
+    int constante;
 } compiler_element;
 
 /**

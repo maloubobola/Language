@@ -130,6 +130,7 @@ Var         :   tComma tName
                     element->value = $5;
                     element->address = declarationAddress;
                     element->pointer = 0;
+                    element->constante = 1;
                     
                     fprintf(file,"AFC %d %d\n",element->address,element->value);
                     
@@ -309,6 +310,8 @@ Function    :   Operation
                     compiler_element *element = find_by_name($1,0);
                     if(element == NULL)
                         compiler_error("Variable non déclarée.");
+                    if(element->constante == 1)
+                        compiler_error("Impossible de modifier une constante.");
                     
                     fprintf(file,"COP %d %d\n",element->address,$3);
                     
