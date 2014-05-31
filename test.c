@@ -4,9 +4,8 @@ int main ( ) {
     j = 2;
     k = 3;
 
-    if(i == 1) {
+    while (i < 10){
     	print(j);
-    } else {
-        print(k);
+        i = i + 1;
     }
 }

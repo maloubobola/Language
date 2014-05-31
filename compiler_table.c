@@ -12,10 +12,11 @@
 compiler_table comp_table = NULL;
 
 /**
- *  Find an element from the given name if it exists, otherwise create an element with the given name
+ *  Find an element into the list from the given name. If the tag isCreationAllowed is equal to 1, if the element does not exist, it will be create
  *  @param s Given name
+ *  @param isCreationAllowaed When equal to 1, allow to create an element if it does not exist.
  */
-compiler_element * find_by_name(char *s) {
+compiler_element * find_by_name(char *s, int isCreationAllowed) {
     compiler_element *tmp = comp_table;
     while(tmp != NULL) {
         if(tmp->name && !strcmp(tmp->name, s))
@@ -23,19 +24,25 @@ compiler_element * find_by_name(char *s) {
         tmp = tmp->next;
     }
     
-    compiler_element* element = malloc(sizeof(compiler_element));
-    element->name = strdup(s);
-    if(comp_table == NULL)
-        comp_table = element;
-    else {
-        tmp = comp_table;
-        
-        while(tmp->next != NULL)
-            tmp = tmp->next;
-        
-        tmp->next = element;
+    if(isCreationAllowed == 1) {
+        compiler_element* element = malloc(sizeof(compiler_element));
+        element->name = strdup(s);
+        if(comp_table == NULL)
+            comp_table = element;
+        else {
+            tmp = comp_table;
+            
+            while(tmp->next != NULL)
+                tmp = tmp->next;
+            
+            tmp->next = element;
+        }
+        return element;
     }
-  	return element;
+}
+
+compiler_element * add_compiler_element(char *s) {
+    
 }
 
 /**
@@ -89,4 +96,14 @@ int printCompilerTable(void) {
     }
 	printf("########################\n");
     return 0;
+}
+
+void compiler_free(int address) {
+    compiler_element *tmp = comp_table;
+    
+    while(tmp != NULL) {
+        if(tmp->address == address)
+            free(tmp);
+        tmp = tmp->next;
+    }
 }

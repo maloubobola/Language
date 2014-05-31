@@ -160,7 +160,7 @@ void evaluate() {
 		break;
 		
 		case 7:
-			evaluateIndex = element->op1 - 1;
+			evaluateIndex = element->op1 - 2;
 		break;
 		
 		case 8:
@@ -168,35 +168,35 @@ void evaluate() {
 				evaluateIndex = element->op2 - 1;
 			} else {
 				evaluateIndex++;
-			}			
+			}
 		break;
 		
 		case 9:
-            if(interpreter_get_value(element->op2) < interpreter_get_value(element->op3)) {
+            if(interpreter_get_value(element->op2) < interpreter_get_value(element->op3))
                 res = 1;
-            } else {
+            else
                 res = 0;
-            }
+            
             interpreter_set_value(element->op1,res);
             evaluateIndex++;
 		break;
 		
 		case 10:
-			if(interpreter_get_value(element->op2) > interpreter_get_value(element->op3)) {
-                res = 0;
-            } else {
+			if(interpreter_get_value(element->op2) > interpreter_get_value(element->op3))
                 res = 1;
-            }
+            else
+                res = 0;
+            
             interpreter_set_value(element->op1,res);
             evaluateIndex++;
 		break;
 		
 		case 11:
-			if(interpreter_get_value(element->op2) == interpreter_get_value(element->op3)) {
+			if(interpreter_get_value(element->op2) == interpreter_get_value(element->op3))
                 res = 1;
-            } else {
+            else
                 res = 0;
-            }
+            
             interpreter_set_value(element->op1,res);
             evaluateIndex++;
 		break;
@@ -226,6 +226,6 @@ int main(void) {
 
 int interpreter_error(char *err)
 {
-    printf("Error %d: %s\n", currentLine, err);
+    printf("Error (line %d) : %s\n", currentLine, err);
     return 0;
 }

@@ -419,7 +419,7 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  4
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   95
+#define YYLAST   102
 
 /* YYNTOKENS -- Number of terminals.  */
 #define YYNTOKENS  34
@@ -497,8 +497,8 @@ static const yytype_int8 yyrhs[] =
       41,    -1,    44,     6,    41,     7,    -1,    -1,    44,     6,
       41,     7,    43,    46,     6,    41,     7,    -1,    -1,    32,
        4,    49,    45,     5,    -1,    26,    -1,    -1,    27,     4,
-      49,    48,     5,     6,    41,     7,    -1,    52,    22,    52,
-      -1,    52,    23,    52,    -1,    52,    24,    52,    -1,    51,
+      49,    48,     5,     6,    41,     7,    -1,    10,    22,    52,
+      -1,    10,    23,    52,    -1,    10,    24,    52,    -1,    51,
       -1,    20,     4,    51,     5,    -1,    10,    15,    51,    -1,
       13,    10,    15,    51,    -1,    51,    11,    51,    -1,    51,
       12,    51,    -1,    51,    13,    51,    -1,    51,    14,    51,
@@ -511,8 +511,8 @@ static const yytype_uint16 yyrline[] =
        0,    72,    72,    78,    80,    79,    89,    90,    91,    94,
      103,   112,   126,   140,   162,   165,   171,   187,   189,   191,
      193,   195,   197,   201,   207,   206,   217,   216,   224,   233,
-     232,   249,   260,   270,   281,   283,   291,   299,   308,   318,
-     327,   337,   347,   350,   358,   366
+     232,   250,   265,   280,   296,   298,   307,   320,   334,   345,
+     355,   366,   377,   381,   393,   401
 };
 #endif
 
@@ -576,10 +576,10 @@ static const yytype_uint8 yydefact[] =
        0,     0,    44,     0,     0,     5,    17,     0,    19,     0,
       34,    42,     7,     0,    11,     0,    13,     0,    45,     0,
        0,     0,    18,     0,    20,    21,     0,     0,     0,     0,
-      12,    15,     0,    43,     0,    36,     0,     0,    29,     0,
+      12,    15,     0,    43,     0,    36,     0,     0,     0,    29,
       26,     0,    22,    38,    39,    40,    41,    16,    45,    37,
-      35,     0,     0,     0,     0,     0,    23,     0,    31,    32,
-      33,    27,     0,     0,    28,     0,     0,     0,    30,     0,
+      35,     0,     0,     0,     0,     0,    23,    31,    32,    33,
+       0,    27,     0,     0,    28,     0,     0,     0,    30,     0,
       25
 };
 
@@ -587,32 +587,32 @@ static const yytype_uint8 yydefact[] =
 static const yytype_int8 yydefgoto[] =
 {
       -1,     2,    12,    22,    13,    14,    15,    35,    36,    92,
-      37,    85,    95,    38,    81,    68,    39,    40,    41
+      37,    85,    95,    38,    84,    69,    39,    40,    41
 };
 
 /* YYPACT[STATE-NUM] -- Index in YYTABLE of the portion describing
    STATE-NUM.  */
-#define YYPACT_NINF -48
+#define YYPACT_NINF -37
 static const yytype_int8 yypact[] =
 {
-      -8,     4,    18,    22,   -48,    23,    24,    15,    38,    -4,
-      32,    50,    42,    59,     2,   -48,    57,    53,    60,   -48,
-      54,   -48,    -5,    15,   -48,    56,    52,    61,    41,    62,
-      64,    71,   -48,    74,    75,   -48,    -5,    76,    -5,    65,
-      51,   -48,   -48,    66,   -48,    27,   -48,    33,    68,    33,
-      33,    33,   -48,    -5,   -48,    -5,    33,    33,    33,    33,
-     -48,   -48,    70,   -48,    78,    51,    33,    39,   -48,   -10,
-     -48,    79,   -48,    45,    45,    45,    45,   -48,   -48,    51,
-     -48,    80,    33,    33,    33,    84,    55,    85,   -48,   -48,
-     -48,   -48,    67,    -5,   -48,    86,    83,    -5,   -48,    87,
-     -48
+      -6,    36,    35,    52,   -37,    53,    34,    12,    50,    16,
+      54,    55,    56,    59,    -3,   -37,    57,    45,    58,   -37,
+      47,   -37,    -9,    12,   -37,    60,    48,    61,    39,    62,
+      63,    67,   -37,    68,    70,   -37,    -9,    72,    -9,    64,
+      -4,   -37,   -37,    65,   -37,   -15,   -37,    15,    66,    15,
+      69,    69,   -37,    -9,   -37,    -9,    15,    15,    15,    15,
+     -37,   -37,    74,   -37,    75,    -4,    15,    32,    26,   -37,
+     -37,    73,   -37,    41,    41,    41,    41,   -37,   -37,    -4,
+     -37,    15,    15,    15,    77,    82,    71,   -37,   -37,   -37,
+      83,   -37,    76,    -9,   -37,    84,    81,    -9,   -37,    85,
+     -37
 };
 
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -48,   -48,   -48,   -48,    11,   -48,   -48,   -36,   -48,   -48,
-     -48,   -48,   -48,   -48,   -48,    44,   -48,   -18,   -47
+     -37,   -37,   -37,   -37,    24,   -37,   -37,   -36,   -37,   -37,
+     -37,   -37,   -37,   -37,   -37,    40,   -37,   -25,   -30
 };
 
 /* YYTABLE[YYPACT[STATE-NUM]].  What to do in state STATE-NUM.  If
@@ -622,30 +622,32 @@ static const yytype_int8 yypgoto[] =
 #define YYTABLE_NINF -25
 static const yytype_int8 yytable[] =
 {
-      52,     1,    54,    69,    69,    29,    17,     3,    30,    18,
-       8,     9,    82,    83,    84,    31,    32,    71,     4,    72,
-      10,    23,    33,     8,     9,    24,     5,    34,     6,    65,
-       7,    67,    11,    10,    42,    88,    89,    90,    73,    74,
-      75,    76,    19,    63,    80,    11,    64,    16,    79,    21,
-      56,    57,    58,    59,    32,    61,    62,    96,    58,    59,
-      20,    99,    56,    57,    58,    59,    -3,    25,    26,    28,
-      27,    43,    46,    44,    48,    49,    45,    47,    50,    51,
-      77,   -24,    53,    66,    55,    87,    86,    60,    78,    91,
-      98,    93,    97,    94,   100,    70
+      52,    29,    54,     1,    30,     8,     9,    56,    57,    58,
+      59,    31,    32,    61,    62,    10,    23,    71,    33,    72,
+       8,     9,    65,    34,    67,    63,    17,    11,    64,    18,
+      10,    73,    74,    75,    76,     4,    32,    80,    24,     3,
+       7,    79,    11,    56,    57,    58,    59,    42,    81,    82,
+      83,    87,    88,    89,    58,    59,     5,    96,     6,    16,
+      26,    99,    28,    21,    19,    20,    -3,    25,    27,    44,
+      46,    49,    50,    48,    51,    43,    45,    47,    53,    68,
+      86,    66,    90,    55,    77,    78,    60,    91,    98,    93,
+      97,    70,   100,     0,     0,     0,     0,   -24,     0,     0,
+       0,     0,    94
 };
 
-static const yytype_uint8 yycheck[] =
+static const yytype_int8 yycheck[] =
 {
-      36,     9,    38,    50,    51,    10,    10,     3,    13,    13,
-       8,     9,    22,    23,    24,    20,    21,    53,     0,    55,
-      18,    19,    27,     8,     9,    14,     4,    32,     5,    47,
-       6,    49,    30,    18,    23,    82,    83,    84,    56,    57,
-      58,    59,    10,    10,     5,    30,    13,     9,    66,     7,
-      11,    12,    13,    14,    21,    28,    29,    93,    13,    14,
-      10,    97,    11,    12,    13,    14,     7,    10,    15,    15,
-      10,    15,    31,    21,    10,     4,    15,    15,     4,     4,
-      10,    26,     6,    15,    19,     5,     7,    21,    10,     5,
-       7,     6,     6,    26,     7,    51
+      36,    10,    38,     9,    13,     8,     9,    11,    12,    13,
+      14,    20,    21,    28,    29,    18,    19,    53,    27,    55,
+       8,     9,    47,    32,    49,    10,    10,    30,    13,    13,
+      18,    56,    57,    58,    59,     0,    21,     5,    14,     3,
+       6,    66,    30,    11,    12,    13,    14,    23,    22,    23,
+      24,    81,    82,    83,    13,    14,     4,    93,     5,     9,
+      15,    97,    15,     7,    10,    10,     7,    10,    10,    21,
+      31,     4,     4,    10,     4,    15,    15,    15,     6,    10,
+       7,    15,     5,    19,    10,    10,    21,     5,     7,     6,
+       6,    51,     7,    -1,    -1,    -1,    -1,    26,    -1,    -1,
+      -1,    -1,    26
 };
 
 /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
@@ -658,10 +660,10 @@ static const yytype_uint8 yystos[] =
       13,    20,    21,    27,    32,    41,    42,    44,    47,    50,
       51,    52,    38,    15,    21,    15,    31,    15,    10,     4,
        4,     4,    41,     6,    41,    19,    11,    12,    13,    14,
-      21,    28,    29,    10,    13,    51,    15,    51,    49,    52,
+      21,    28,    29,    10,    13,    51,    15,    51,    10,    49,
       49,    41,    41,    51,    51,    51,    51,    10,    10,    51,
-       5,    48,    22,    23,    24,    45,     7,     5,    52,    52,
-      52,     5,    43,     6,    26,    46,    41,     6,     7,    41,
+       5,    22,    23,    24,    48,    45,     7,    52,    52,    52,
+       5,     5,    43,     6,    26,    46,    41,     6,     7,    41,
        7
 };
 
@@ -1495,7 +1497,7 @@ yyreduce:
   case 9:
 #line 95 "compiler.y"
     {
-                    compiler_element *element = find_by_name((yyvsp[(2) - (2)].string));
+                    compiler_element *element = find_by_name((yyvsp[(2) - (2)].string),1);
                     
                     element->address = declarationAddress;
                     element->pointer = 0;
@@ -1506,7 +1508,7 @@ yyreduce:
   case 10:
 #line 104 "compiler.y"
     {
-                    compiler_element *element = find_by_name((yyvsp[(2) - (2)].string));
+                    compiler_element *element = find_by_name((yyvsp[(2) - (2)].string),1);
                     
                     element->address = declarationAddress;
                     element->pointer = 0;
@@ -1517,7 +1519,7 @@ yyreduce:
   case 11:
 #line 113 "compiler.y"
     {
-                    compiler_element *element = find_by_name((yyvsp[(2) - (4)].string));
+                    compiler_element *element = find_by_name((yyvsp[(2) - (4)].string),1);
                     
                     element->value = (yyvsp[(4) - (4)].integer);
                     element->address = declarationAddress;
@@ -1533,7 +1535,7 @@ yyreduce:
   case 12:
 #line 127 "compiler.y"
     {
-                    compiler_element *element = find_by_name((yyvsp[(3) - (5)].string));
+                    compiler_element *element = find_by_name((yyvsp[(3) - (5)].string),1);
                     
                     element->value = (yyvsp[(5) - (5)].integer);
                     element->address = declarationAddress;
@@ -1549,7 +1551,7 @@ yyreduce:
   case 13:
 #line 141 "compiler.y"
     {
-                    compiler_element *element = find_by_name((yyvsp[(2) - (4)].string));
+                    compiler_element *element = find_by_name((yyvsp[(2) - (4)].string),1);
                     int size = strlen((yyvsp[(4) - (4)].string));
                     int i;
                     int j = 0;
@@ -1573,7 +1575,7 @@ yyreduce:
   case 15:
 #line 166 "compiler.y"
     {
-                    compiler_element *element = find_by_name((yyvsp[(3) - (5)].string));
+                    compiler_element *element = find_by_name((yyvsp[(3) - (5)].string),1);
                     element->pointer = 1;
                 ;}
     break;
@@ -1581,9 +1583,9 @@ yyreduce:
   case 16:
 #line 172 "compiler.y"
     {
-                    compiler_element *element = find_by_name((yyvsp[(3) - (6)].string));
+                    compiler_element *element = find_by_name((yyvsp[(3) - (6)].string),1);
                     
-                    element->value = find_by_name((yyvsp[(6) - (6)].string))->address;
+                    element->value = find_by_name((yyvsp[(6) - (6)].string),0)->address;
                     element->address = declarationAddress;
                     element->pointer = 1;
                     
@@ -1650,16 +1652,21 @@ yyreduce:
                     jumpList = addBeforelast(jumpList,cptLine + 2);
                     fprintf(file,"JMP [%d]\n", cptIf - 1);
                     cptLine++;
+                    compiler_free(currentAddress);
                     currentAddress -= INT_SIZE;
                 ;}
     break;
 
   case 31:
-#line 250 "compiler.y"
+#line 251 "compiler.y"
     {
-                    int min = (yyvsp[(1) - (3)].integer) < (yyvsp[(3) - (3)].integer) ? (yyvsp[(1) - (3)].integer) : (yyvsp[(3) - (3)].integer);
+                    int min = currentAddress < (yyvsp[(3) - (3)].integer) ? currentAddress : (yyvsp[(3) - (3)].integer);
                     
-                    fprintf(file,"EQU %d %d %d\n",min,(yyvsp[(1) - (3)].integer),(yyvsp[(3) - (3)].integer));
+                    compiler_element *element = find_by_name((yyvsp[(1) - (3)].string),0);
+                    if(element == NULL)
+                        compiler_error("Variable non déclarée.");
+                    
+                    fprintf(file,"EQU %d %d %d\n",min,element->address,(yyvsp[(3) - (3)].integer));
                     
                     cptLine++;
                     (yyval.integer) = min;
@@ -1668,111 +1675,140 @@ yyreduce:
     break;
 
   case 32:
-#line 261 "compiler.y"
+#line 266 "compiler.y"
     {
-                    int min = (yyvsp[(1) - (3)].integer) < (yyvsp[(3) - (3)].integer) ? (yyvsp[(1) - (3)].integer) : (yyvsp[(3) - (3)].integer);
+                    int min = currentAddress < (yyvsp[(3) - (3)].integer) ? currentAddress : (yyvsp[(3) - (3)].integer);
                     
-                    fprintf(file,"INF %d %d %d\n",min,(yyvsp[(1) - (3)].integer),(yyvsp[(3) - (3)].integer));
+                    compiler_element *element = find_by_name((yyvsp[(1) - (3)].string),0);
+                    if(element == NULL)
+                        compiler_error("Variable non déclarée.");
+                    
+                    fprintf(file,"INF %d %d %d\n",min,element->address,(yyvsp[(3) - (3)].integer));
                     
                     cptLine++;
+                    (yyval.integer) = min;
                     //currentAddress -= INT_SIZE;
                 ;}
     break;
 
   case 33:
-#line 271 "compiler.y"
+#line 281 "compiler.y"
     {
-                    int min = (yyvsp[(1) - (3)].integer) < (yyvsp[(3) - (3)].integer) ? (yyvsp[(1) - (3)].integer) : (yyvsp[(3) - (3)].integer);
+                    int min = currentAddress < (yyvsp[(3) - (3)].integer) ? currentAddress : (yyvsp[(3) - (3)].integer);
                     
-                    fprintf(file,"SUP %d %d %d\n",min,(yyvsp[(1) - (3)].integer),(yyvsp[(3) - (3)].integer));
+                    compiler_element *element = find_by_name((yyvsp[(1) - (3)].string),0);
+                    if(element == NULL)
+                        compiler_error("Variable non déclarée.");
+                    
+                    fprintf(file,"SUP %d %d %d\n",min,element->address,(yyvsp[(3) - (3)].integer));
                     
                     cptLine++;
+                    (yyval.integer) = min;
                     //currentAddress -= INT_SIZE;
                 ;}
     break;
 
   case 35:
-#line 284 "compiler.y"
+#line 299 "compiler.y"
     {
                     fprintf(file,"PRI %d\n",(yyvsp[(3) - (4)].integer));
                     
                     cptLine++;
+                    compiler_free(currentAddress);
                     currentAddress -= INT_SIZE;
                 ;}
     break;
 
   case 36:
-#line 292 "compiler.y"
+#line 308 "compiler.y"
     {
-                    fprintf(file,"COP %d %d\n",find_by_name((yyvsp[(1) - (3)].string))->address,(yyvsp[(3) - (3)].integer));
+                    compiler_element *element = find_by_name((yyvsp[(1) - (3)].string),0);
+                    if(element == NULL)
+                        compiler_error("Variable non déclarée.");
+                    
+                    fprintf(file,"COP %d %d\n",element->address,(yyvsp[(3) - (3)].integer));
                     
                     cptLine++;
+                    compiler_free(currentAddress);
                     currentAddress -= INT_SIZE;
                 ;}
     break;
 
   case 37:
-#line 300 "compiler.y"
+#line 321 "compiler.y"
     {
-                    fprintf(file,"COP %d %d\n",find_by_name((yyvsp[(2) - (4)].string))->value,(yyvsp[(4) - (4)].integer));
+                    compiler_element *element = find_by_name((yyvsp[(2) - (4)].string),0);
+                    if(element == NULL)
+                        compiler_error("Variable non déclarée.");
+                    
+                    fprintf(file,"COP %d %d\n",element->value,(yyvsp[(4) - (4)].integer));
                     
                     cptLine++;
+                    compiler_free(currentAddress);
                     currentAddress -= INT_SIZE;
                 ;}
     break;
 
   case 38:
-#line 309 "compiler.y"
+#line 335 "compiler.y"
     {
                     int min = (yyvsp[(1) - (3)].integer) < (yyvsp[(3) - (3)].integer) ? (yyvsp[(1) - (3)].integer) : (yyvsp[(3) - (3)].integer);
                     
                     fprintf(file,"ADD %d %d %d\n",min,(yyvsp[(1) - (3)].integer),(yyvsp[(3) - (3)].integer));
                     
                     cptLine++;
+                    compiler_free(currentAddress);
                     currentAddress -= INT_SIZE;
                 ;}
     break;
 
   case 39:
-#line 319 "compiler.y"
+#line 346 "compiler.y"
     {
                     int min = (yyvsp[(1) - (3)].integer) < (yyvsp[(3) - (3)].integer) ? (yyvsp[(1) - (3)].integer) : (yyvsp[(3) - (3)].integer);
                     
                     fprintf(file,"SOU %d %d %d\n",min,(yyvsp[(1) - (3)].integer),(yyvsp[(3) - (3)].integer));
                     
                     cptLine++;
+                    compiler_free(currentAddress);
                     currentAddress -= INT_SIZE;
                 ;}
     break;
 
   case 40:
-#line 328 "compiler.y"
+#line 356 "compiler.y"
     {
                     int min = (yyvsp[(1) - (3)].integer) < (yyvsp[(3) - (3)].integer) ? (yyvsp[(1) - (3)].integer) : (yyvsp[(3) - (3)].integer);
                     
                     fprintf(file,"MUL %d %d %d\n",min,(yyvsp[(1) - (3)].integer),(yyvsp[(3) - (3)].integer));
                     
                     cptLine++;
+                    compiler_free(currentAddress);
                     currentAddress -= INT_SIZE;
                 ;}
     break;
 
   case 41:
-#line 338 "compiler.y"
+#line 367 "compiler.y"
     {
                     int min = (yyvsp[(1) - (3)].integer) < (yyvsp[(3) - (3)].integer) ? (yyvsp[(1) - (3)].integer) : (yyvsp[(3) - (3)].integer);
                     
                     fprintf(file,"DIV %d %d %d\n",min,(yyvsp[(1) - (3)].integer),(yyvsp[(3) - (3)].integer));
                     
                     cptLine++;
+                    compiler_free(currentAddress);
                     currentAddress -= INT_SIZE;
                 ;}
     break;
 
   case 43:
-#line 351 "compiler.y"
+#line 382 "compiler.y"
     {
-                    fprintf(file,"COP %d %d\n",currentAddress,find_by_name((yyvsp[(1) - (1)].string))->address);
+                    compiler_element *element = find_by_name((yyvsp[(1) - (1)].string),0);
+                    if(element == NULL)
+                        compiler_error("Variable non déclarée.");
+                    
+                    fprintf(file,"COP %d %d\n",currentAddress,element->address);
                     cptLine++;
                     (yyval.integer) = currentAddress;
                     currentAddress += INT_SIZE;
@@ -1780,7 +1816,7 @@ yyreduce:
     break;
 
   case 44:
-#line 359 "compiler.y"
+#line 394 "compiler.y"
     {
                     fprintf(file,"AFC %d %d\n",currentAddress,(yyvsp[(1) - (1)].integer));
                     cptLine++;
@@ -1790,19 +1826,15 @@ yyreduce:
     break;
 
   case 45:
-#line 367 "compiler.y"
+#line 402 "compiler.y"
     {
-                    compiler_element *element = find_by_name((yyvsp[(2) - (2)].string));
+                    compiler_element *element = find_by_name((yyvsp[(2) - (2)].string),0);
+                    if(element == NULL)
+                        compiler_error("Variable non déclarée.");
                     
-                    if(element == NULL) {
-                        compiler_error("Null pointer exception");
-                        exit(1);
-                    }
                     
-                    if(element->pointer == 0) {
+                    if(element->pointer == 0)
                         compiler_error("Given variable is not a pointer");
-                        exit(1);
-                    }
                     
                     fprintf(file,"COP %d %d\n",currentAddress,element->value);
                     
@@ -1814,7 +1846,7 @@ yyreduce:
 
 
 /* Line 1267 of yacc.c.  */
-#line 1818 "compiler.tab.c"
+#line 1850 "compiler.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -2028,7 +2060,7 @@ yyreturn:
 }
 
 
-#line 388 "compiler.y"
+#line 419 "compiler.y"
 
 
 int secondTime() {
@@ -2077,8 +2109,9 @@ int main(void) {
 
 int compiler_error(char *err)
 {
-    printf("Error %d: %s\n", currentLine, err);
-    return 0;
+    printf("Error (line %d) : %s\n", currentLine, err);
+    exit(EXIT_FAILURE);
+    return -1;
 }
 
 

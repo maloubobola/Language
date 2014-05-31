@@ -93,7 +93,7 @@ Vars        :   Var Vars
 
 Var         :   tComma tName
                 {
-                    compiler_element *element = find_by_name($2);
+                    compiler_element *element = find_by_name($2,1);
                     
                     element->address = declarationAddress;
                     element->pointer = 0;
@@ -102,7 +102,7 @@ Var         :   tComma tName
 
             |   tIntegerKey tName
                 {
-                    compiler_element *element = find_by_name($2);
+                    compiler_element *element = find_by_name($2,1);
                     
                     element->address = declarationAddress;
                     element->pointer = 0;
@@ -111,7 +111,7 @@ Var         :   tComma tName
 
             |   tIntegerKey tName tEqual tNumber
                 {
-                    compiler_element *element = find_by_name($2);
+                    compiler_element *element = find_by_name($2,1);
                     
                     element->value = $4;
                     element->address = declarationAddress;
@@ -125,7 +125,7 @@ Var         :   tComma tName
 
             |   tConstantKey tIntegerKey tName tEqual tNumber
                 {
-                    compiler_element *element = find_by_name($3);
+                    compiler_element *element = find_by_name($3,1);
                     
                     element->value = $5;
                     element->address = declarationAddress;
@@ -139,7 +139,7 @@ Var         :   tComma tName
 
             |   tStringKey tName tEqual tString
                 {
-                    compiler_element *element = find_by_name($2);
+                    compiler_element *element = find_by_name($2,1);
                     int size = strlen($4);
                     int i;
                     int j = 0;
@@ -164,15 +164,15 @@ Var         :   tComma tName
 
 Pointer     :   tIntegerKey tMultiply tName tEqual tNullKey
                 {
-                    compiler_element *element = find_by_name($3);
+                    compiler_element *element = find_by_name($3,1);
                     element->pointer = 1;
                 }
 
             |   tIntegerKey tMultiply tName tEqual tRef tName
                 {
-                    compiler_element *element = find_by_name($3);
+                    compiler_element *element = find_by_name($3,1);
                     
-                    element->value = find_by_name($6)->address;
+                    element->value = find_by_name($6,0)->address;
                     element->address = declarationAddress;
                     element->pointer = 1;
                     
@@ -242,38 +242,53 @@ While       :  tWhileKey tOpenBracket Comparison
                     jumpList = addBeforelast(jumpList,cptLine + 2);
                     fprintf(file,"JMP [%d]\n", cptIf - 1);
                     cptLine++;
+                    compiler_free(currentAddress);
                     currentAddress -= INT_SIZE;
                 }
             ;
 			
-Comparison  :   Term tCompEqual Term
+Comparison  :   tName tCompEqual Term
                 {
-                    int min = $1 < $3 ? $1 : $3;
+                    int min = currentAddress < $3 ? currentAddress : $3;
                     
-                    fprintf(file,"EQU %d %d %d\n",min,$1,$3);
+                    compiler_element *element = find_by_name($1,0);
+                    if(element == NULL)
+                        compiler_error("Variable non déclarée.");
+                    
+                    fprintf(file,"EQU %d %d %d\n",min,element->address,$3);
                     
                     cptLine++;
                     $$ = min;
                     //currentAddress -= INT_SIZE;
                 }
 
-            |   Term tLt Term
+            |   tName tLt Term
                 {
-                    int min = $1 < $3 ? $1 : $3;
+                    int min = currentAddress < $3 ? currentAddress : $3;
                     
-                    fprintf(file,"INF %d %d %d\n",min,$1,$3);
+                    compiler_element *element = find_by_name($1,0);
+                    if(element == NULL)
+                        compiler_error("Variable non déclarée.");
+                    
+                    fprintf(file,"INF %d %d %d\n",min,element->address,$3);
                     
                     cptLine++;
+                    $$ = min;
                     //currentAddress -= INT_SIZE;
                 }
 
-            |   Term tGt Term
+            |   tName tGt Term
                 {
-                    int min = $1 < $3 ? $1 : $3;
+                    int min = currentAddress < $3 ? currentAddress : $3;
                     
-                    fprintf(file,"SUP %d %d %d\n",min,$1,$3);
+                    compiler_element *element = find_by_name($1,0);
+                    if(element == NULL)
+                        compiler_error("Variable non déclarée.");
+                    
+                    fprintf(file,"SUP %d %d %d\n",min,element->address,$3);
                     
                     cptLine++;
+                    $$ = min;
                     //currentAddress -= INT_SIZE;
                 }
             ;
@@ -285,22 +300,33 @@ Function    :   Operation
                     fprintf(file,"PRI %d\n",$3);
                     
                     cptLine++;
+                    compiler_free(currentAddress);
                     currentAddress -= INT_SIZE;
                 }
 
             |   tName tEqual Operation
                 {
-                    fprintf(file,"COP %d %d\n",find_by_name($1)->address,$3);
+                    compiler_element *element = find_by_name($1,0);
+                    if(element == NULL)
+                        compiler_error("Variable non déclarée.");
+                    
+                    fprintf(file,"COP %d %d\n",element->address,$3);
                     
                     cptLine++;
+                    compiler_free(currentAddress);
                     currentAddress -= INT_SIZE;
                 }
 
             |   tMultiply tName tEqual Operation
                 {
-                    fprintf(file,"COP %d %d\n",find_by_name($2)->value,$4);
+                    compiler_element *element = find_by_name($2,0);
+                    if(element == NULL)
+                        compiler_error("Variable non déclarée.");
+                    
+                    fprintf(file,"COP %d %d\n",element->value,$4);
                     
                     cptLine++;
+                    compiler_free(currentAddress);
                     currentAddress -= INT_SIZE;
                 }
             ;
@@ -312,6 +338,7 @@ Operation   :   Operation tAdd Operation
                     fprintf(file,"ADD %d %d %d\n",min,$1,$3);
                     
                     cptLine++;
+                    compiler_free(currentAddress);
                     currentAddress -= INT_SIZE;
                 }
 
@@ -322,6 +349,7 @@ Operation   :   Operation tAdd Operation
                     fprintf(file,"SOU %d %d %d\n",min,$1,$3);
                     
                     cptLine++;
+                    compiler_free(currentAddress);
                     currentAddress -= INT_SIZE;
                 }
             |   Operation tMultiply Operation
@@ -331,6 +359,7 @@ Operation   :   Operation tAdd Operation
                     fprintf(file,"MUL %d %d %d\n",min,$1,$3);
                     
                     cptLine++;
+                    compiler_free(currentAddress);
                     currentAddress -= INT_SIZE;
                 }
 
@@ -341,15 +370,21 @@ Operation   :   Operation tAdd Operation
                     fprintf(file,"DIV %d %d %d\n",min,$1,$3);
                     
                     cptLine++;
+                    compiler_free(currentAddress);
                     currentAddress -= INT_SIZE;
                 }
 
             |   Term
+
             ;
 
 Term 		:   tName
                 {
-                    fprintf(file,"COP %d %d\n",currentAddress,find_by_name($1)->address);
+                    compiler_element *element = find_by_name($1,0);
+                    if(element == NULL)
+                        compiler_error("Variable non déclarée.");
+                    
+                    fprintf(file,"COP %d %d\n",currentAddress,element->address);
                     cptLine++;
                     $$ = currentAddress;
                     currentAddress += INT_SIZE;
@@ -365,17 +400,13 @@ Term 		:   tName
 
             |   tMultiply tName
                 {
-                    compiler_element *element = find_by_name($2);
+                    compiler_element *element = find_by_name($2,0);
+                    if(element == NULL)
+                        compiler_error("Variable non déclarée.");
                     
-                    if(element == NULL) {
-                        compiler_error("Null pointer exception");
-                        exit(1);
-                    }
                     
-                    if(element->pointer == 0) {
+                    if(element->pointer == 0)
                         compiler_error("Given variable is not a pointer");
-                        exit(1);
-                    }
                     
                     fprintf(file,"COP %d %d\n",currentAddress,element->value);
                     
@@ -433,7 +464,8 @@ int main(void) {
 
 int compiler_error(char *err)
 {
-    printf("Error %d: %s\n", currentLine, err);
-    return 0;
+    printf("Error (line %d) : %s\n", currentLine, err);
+    exit(EXIT_FAILURE);
+    return -1;
 }
 

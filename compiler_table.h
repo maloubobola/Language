@@ -33,10 +33,11 @@ typedef struct compiler_element
 typedef compiler_element* compiler_table;
 
 /**
- *  Find an element from the given name if it exists, otherwise create an element with the given name
+ *  Find an element into the list from the given name. If the tag isCreationAllowed is equal to 1, if the element does not exist, it will be create
  *  @param s Given name
+ *  @param isCreationAllowaed When equal to 1, allow to create an element if it does not exist.
  */
-compiler_element * find_by_name(char *s) ;
+compiler_element * find_by_name(char *s, int isCreationAllowed) ;
 
 /**
  *  Find an element from the given addresse
@@ -62,5 +63,7 @@ void setAddress(compiler_element * element, int address);
  *  Print the compiler table
  */
 int printCompilerTable(void);
+
+void compiler_free(int address);
 
 #endif
