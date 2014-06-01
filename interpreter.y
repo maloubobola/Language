@@ -143,7 +143,7 @@ void evaluate() {
 		
 		case 4:
 			if(interpreter_get_value(element->op3) == 0)
-				interpreter_error("Division by 0\n");
+				interpreter_error("Division par 0\n");
 			res = interpreter_get_value(element->op2) / interpreter_get_value(element->op3);
             interpreter_set_value(element->op1,res);
             evaluateIndex++;
@@ -160,7 +160,7 @@ void evaluate() {
 		break;
 		
 		case 7:
-			evaluateIndex = element->op1 - 2;
+			evaluateIndex = element->op1 - 1;
 		break;
 		
 		case 8:

@@ -11,6 +11,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #define INT_SIZE 4
 #define DEBUG 0
@@ -65,6 +66,10 @@ void setAddress(compiler_element * element, int address);
  */
 int printCompilerTable(void);
 
+/**
+ *  Free an element from the list with the given address
+ *  @param address Given address
+ */
 void compiler_free(int address);
 
 #endif

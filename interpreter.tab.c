@@ -1743,7 +1743,7 @@ void evaluate() {
 		break;
 		
 		case 7:
-			evaluateIndex = element->op1 - 2;
+			evaluateIndex = element->op1 - 1;
 		break;
 		
 		case 8:

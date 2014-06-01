@@ -1,10 +1,6 @@
 int main ( ) {
-    int i,j,k;
-    const int m = 3;
-    i = 1;
-    j = 2;
-    k = 3;
-
-    print(k*(i+j));
-
+    int i = 3;
+    int j;
+    
+    j = i / 0;
 }

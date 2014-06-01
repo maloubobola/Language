@@ -106,7 +106,7 @@ while               {
                         return tWhileKey;
                     }
 
-print              {
+printf              {
                         #if DEBUG
                             printf("tPrintKey");
                         #endif

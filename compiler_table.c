@@ -6,7 +6,6 @@
  *  Copyright (c) 2014 thomas  thiebaud. All rights reserved.
  */
 
-#include <stdio.h>
 #include "compiler_table.h"
 
 compiler_table comp_table = NULL;
@@ -40,6 +39,7 @@ compiler_element * find_by_name(char *s, int isCreationAllowed) {
         }
         return element;
     }
+    return NULL;
 }
 
 compiler_element * add_compiler_element(char *s) {
@@ -99,6 +99,10 @@ int printCompilerTable(void) {
     return 0;
 }
 
+/**
+ *  Free an element from the list with the given address
+ *  @param address Given address
+ */
 void compiler_free(int address) {
     compiler_element *tmp = comp_table;
     

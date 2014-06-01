@@ -60,9 +60,9 @@ FILE *file = NULL;
 
 %union {char* string ; int integer; int line;}
 
-%left tAdd tSubstract
-%right tMultiply tDivide
 %right tEqual
+%left tAdd tSubstract
+%left tMultiply tDivide
 
 %type <integer> Term
 %type <integer> Operation
@@ -97,6 +97,20 @@ Var         :   tComma tName
                     
                     element->address = declarationAddress;
                     element->pointer = 0;
+                    declarationAddress += INT_SIZE;
+                }
+            |
+                tComma tName tEqual tNumber
+                {
+                    compiler_element *element = find_by_name($2,1);
+                    
+                    element->value = $4;
+                    element->address = declarationAddress;
+                    element->pointer = 0;
+                    
+                    fprintf(file,"AFC %d %d\n",element->address,element->value);
+                    
+                    cptLine++;
                     declarationAddress += INT_SIZE;
                 }
 
@@ -250,47 +264,42 @@ While       :  tWhileKey tOpenBracket Comparison
 			
 Comparison  :   tName tCompEqual Term
                 {
-                    int min = currentAddress < $3 ? currentAddress : $3;
-                    
                     compiler_element *element = find_by_name($1,0);
                     if(element == NULL)
                         compiler_error("Variable non déclarée.");
                     
-                    fprintf(file,"EQU %d %d %d\n",min,element->address,$3);
+                    fprintf(file,"EQU %d %d %d\n",currentAddress,element->address,$3);
                     
                     cptLine++;
-                    $$ = min;
-                    //currentAddress -= INT_SIZE;
+                    $$ = currentAddress;
+                    currentAddress += INT_SIZE;
                 }
 
             |   tName tLt Term
                 {
-                    int min = currentAddress < $3 ? currentAddress : $3;
-                    
                     compiler_element *element = find_by_name($1,0);
                     if(element == NULL)
                         compiler_error("Variable non déclarée.");
                     
-                    fprintf(file,"INF %d %d %d\n",min,element->address,$3);
+                    fprintf(file,"INF %d %d %d\n",currentAddress,element->address,$3);
                     
                     cptLine++;
-                    $$ = min;
-                    //currentAddress -= INT_SIZE;
+                    $$ = currentAddress;
+                    currentAddress += INT_SIZE;
                 }
 
             |   tName tGt Term
                 {
-                    int min = currentAddress < $3 ? currentAddress : $3;
-                    
+   
                     compiler_element *element = find_by_name($1,0);
                     if(element == NULL)
                         compiler_error("Variable non déclarée.");
                     
-                    fprintf(file,"SUP %d %d %d\n",min,element->address,$3);
+                    fprintf(file,"SUP %d %d %d\n",currentAddress,element->address,$3);
                     
                     cptLine++;
-                    $$ = min;
-                    //currentAddress -= INT_SIZE;
+                    $$ = currentAddress;
+                    currentAddress += INT_SIZE;
                 }
             ;
 
@@ -410,9 +419,7 @@ Term 		:   tName
                     compiler_element *element = find_by_name($2,0);
                     if(element == NULL)
                         compiler_error("Variable non déclarée.");
-                    
-                    
-                    if(element->pointer == 0)
+                    else if(element->pointer == 0)
                         compiler_error("Given variable is not a pointer");
                     
                     fprintf(file,"COP %d %d\n",currentAddress,element->value);
