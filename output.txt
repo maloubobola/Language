@@ -1,6 +1,0 @@
-AFC 0 3
-COP 8 0
-AFC 12 0
-DIV 8 8 12
-COP 4 8
-

@@ -529,6 +529,7 @@ char *compilertext;
 #include "symbol.h"
 #include <string.h>
 #include <stdlib.h>
+#define DEBUG 1
 
 int currentLine = 1;
 
@@ -536,7 +537,7 @@ int currentLine = 1;
 #define compilerlex compiler_lex
 
 
-#line 540 "lex.compiler.c"
+#line 541 "lex.compiler.c"
 
 #define INITIAL 0
 #define BLOCK_COMMENT 1
@@ -720,9 +721,9 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
     
-#line 18 "compiler.l"
+#line 19 "compiler.l"
 
-#line 726 "lex.compiler.c"
+#line 727 "lex.compiler.c"
 
 	if ( !(yy_init) )
 		{
@@ -807,26 +808,26 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 19 "compiler.l"
+#line 20 "compiler.l"
 {
                         BEGIN(BLOCK_COMMENT);
                     }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 23 "compiler.l"
+#line 24 "compiler.l"
 {
                         BEGIN(INITIAL);
                     }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 27 "compiler.l"
+#line 28 "compiler.l"
 {}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 29 "compiler.l"
+#line 30 "compiler.l"
 {
                         BEGIN(INLINE_COMMENT);
                     }
@@ -834,19 +835,19 @@ YY_RULE_SETUP
 case 5:
 /* rule 5 can match eol */
 YY_RULE_SETUP
-#line 33 "compiler.l"
+#line 34 "compiler.l"
 {
                         BEGIN(INITIAL);
                         }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 37 "compiler.l"
+#line 38 "compiler.l"
 {}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 39 "compiler.l"
+#line 40 "compiler.l"
 {
                         #if DEBUG
                             printf("tMain");
@@ -856,7 +857,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 46 "compiler.l"
+#line 47 "compiler.l"
 {
                         #if DEBUG
                             printf("tOpenBracket");
@@ -866,7 +867,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 53 "compiler.l"
+#line 54 "compiler.l"
 {
                         #if DEBUG
                             printf("tCloseBracket");
@@ -876,7 +877,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 60 "compiler.l"
+#line 61 "compiler.l"
 {
                         #if DEBUG
                             printf("tOpenBrace");
@@ -886,7 +887,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 67 "compiler.l"
+#line 68 "compiler.l"
 {
                         #if DEBUG
                             printf("tCloseBrace");
@@ -896,7 +897,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 74 "compiler.l"
+#line 75 "compiler.l"
 {
                         #if DEBUG
                             printf("tConstantKey");
@@ -906,7 +907,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 81 "compiler.l"
+#line 82 "compiler.l"
 {
                         #if DEBUG
                             printf("tIntegerKey");
@@ -916,7 +917,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 88 "compiler.l"
+#line 89 "compiler.l"
 {
                         #if DEBUG
                             printf("tIfKey");
@@ -926,7 +927,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 95 "compiler.l"
+#line 96 "compiler.l"
 {
                         #if DEBUG
                             printf("\tElseKey");
@@ -936,7 +937,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 102 "compiler.l"
+#line 103 "compiler.l"
 {
                         #if DEBUG
                             printf("\tWhileKey");
@@ -946,7 +947,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 109 "compiler.l"
+#line 110 "compiler.l"
 {
                         #if DEBUG
                             printf("tPrintKey");
@@ -956,7 +957,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 116 "compiler.l"
+#line 117 "compiler.l"
 {
                         #if DEBUG
                             printf("tNullKey");
@@ -966,7 +967,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 123 "compiler.l"
+#line 124 "compiler.l"
 {
                         #if DEBUG
                             printf("tStringKey");
@@ -976,7 +977,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 130 "compiler.l"
+#line 131 "compiler.l"
 {
                         #if DEBUG
                             printf("tAdd");
@@ -986,7 +987,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 137 "compiler.l"
+#line 138 "compiler.l"
 {
                         #if DEBUG
                             printf("tSubstract");
@@ -996,7 +997,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 144 "compiler.l"
+#line 145 "compiler.l"
 {
                         #if DEBUG
                             printf("tMultiply");
@@ -1006,7 +1007,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 151 "compiler.l"
+#line 152 "compiler.l"
 {
                         #if DEBUG
                             printf("tDivide");
@@ -1016,7 +1017,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 158 "compiler.l"
+#line 159 "compiler.l"
 {
                         #if DEBUG
                             printf("tEqual");
@@ -1026,7 +1027,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 165 "compiler.l"
+#line 166 "compiler.l"
 {
                         #if DEBUG
                             printf("tCompEqual");
@@ -1036,7 +1037,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 172 "compiler.l"
+#line 173 "compiler.l"
 {
                         #if DEBUG
                             printf("tLt");
@@ -1046,7 +1047,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 179 "compiler.l"
+#line 180 "compiler.l"
 {
                         #if DEBUG
                             printf("tGt");
@@ -1056,7 +1057,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 186 "compiler.l"
+#line 187 "compiler.l"
 {
                         #if DEBUG
                             printf("tDifferent");
@@ -1066,7 +1067,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 193 "compiler.l"
+#line 194 "compiler.l"
 {
                         #if DEBUG
                             printf("tRef");
@@ -1076,7 +1077,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 200 "compiler.l"
+#line 201 "compiler.l"
 {
                         #if DEBUG
                             printf(" ");
@@ -1085,7 +1086,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 206 "compiler.l"
+#line 207 "compiler.l"
 {
                         #if DEBUG
                             printf("\t");
@@ -1094,7 +1095,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 212 "compiler.l"
+#line 213 "compiler.l"
 {
                         #if DEBUG
                             printf(",");
@@ -1104,7 +1105,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 219 "compiler.l"
+#line 220 "compiler.l"
 {
                         #if DEBUG
                             printf(" ; ");
@@ -1115,7 +1116,7 @@ YY_RULE_SETUP
 case 34:
 /* rule 34 can match eol */
 YY_RULE_SETUP
-#line 226 "compiler.l"
+#line 227 "compiler.l"
 {
                         #if DEBUG
                             printf("\n");
@@ -1125,7 +1126,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 233 "compiler.l"
+#line 234 "compiler.l"
 {
                         #if DEBUG
                             printf("tName");
@@ -1136,7 +1137,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 241 "compiler.l"
+#line 242 "compiler.l"
 {
                         #if DEBUG
                             printf("tNumber");
@@ -1147,7 +1148,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 249 "compiler.l"
+#line 250 "compiler.l"
 {
                         #if DEBUG
                             printf("tString");
@@ -1158,15 +1159,15 @@ YY_RULE_SETUP
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 257 "compiler.l"
+#line 258 "compiler.l"
 {};
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 258 "compiler.l"
+#line 259 "compiler.l"
 ECHO;
 	YY_BREAK
-#line 1170 "lex.compiler.c"
+#line 1171 "lex.compiler.c"
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(BLOCK_COMMENT):
 case YY_STATE_EOF(INLINE_COMMENT):
@@ -2165,4 +2166,4 @@ void compilerfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 258 "compiler.l"
+#line 259 "compiler.l"

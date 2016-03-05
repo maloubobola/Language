@@ -3,6 +3,7 @@
 #include "symbol.h"
 #include <string.h>
 #include <stdlib.h>
+#define DEBUG 1
 
 int currentLine = 1;
 
